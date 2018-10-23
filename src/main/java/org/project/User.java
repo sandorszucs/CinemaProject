@@ -1,3 +1,5 @@
+package org.project;
+
 public class User {
 
     private String name;

@@ -1,3 +1,4 @@
+package org.project;
 public class RegisteredUser extends User {
 
     private String telephoneNumber;

@@ -1,3 +1,5 @@
+package org.project;
+
 public class Payment {
     private double amount;
     private int transactionId;

@@ -1,3 +1,4 @@
+package org.project;
 import java.util.Date;
 
 public class Reservation {

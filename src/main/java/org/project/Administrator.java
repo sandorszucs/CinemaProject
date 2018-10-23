@@ -1,3 +1,4 @@
+package org.project;
 public class Administrator extends User{
 
     public Administrator() {

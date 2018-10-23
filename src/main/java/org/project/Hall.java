@@ -1,3 +1,4 @@
+package org.project;
 public class Hall {
 
     private String location;

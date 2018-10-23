@@ -1,3 +1,4 @@
+package org.project;
 public class Seat {
 
     private char row;
