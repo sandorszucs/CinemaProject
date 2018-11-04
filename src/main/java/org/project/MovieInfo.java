@@ -8,16 +8,14 @@ public class MovieInfo {
     private String movieType;
     private String director;
     private String[] cast;
-    private Date movieStartTime; // nem-e lehet datetime formattal letrehozni?
     private char venue;
 
-    public MovieInfo(int id, String title, String movieType, String director, String[] cast, Date movieStartTime, char venue) {
+    public MovieInfo(int id, String title, String movieType, String director, String[] cast, char venue) {
         this.id = id;
         this.title = title;
         this.movieType = movieType;
         this.director = director;
         this.cast = cast;
-        this.movieStartTime = movieStartTime;
         this.venue = venue;
     }
 
@@ -61,14 +59,6 @@ public class MovieInfo {
 
     public void setCast(String[] cast) {
         this.cast = cast;
-    }
-
-    public Date getMovieStartTime() {
-        return movieStartTime;
-    }
-
-    public void setMovieStartTime(Date movieStartTime) {
-        this.movieStartTime = movieStartTime;
     }
 
     public char getVenue() {

@@ -6,11 +6,13 @@ public class Schedule {
     private Hall hall;
     private MovieInfo movieInfo;
     private Date startTime;
+    private Date movieStartTime;
 
-    public Schedule(Hall hall, MovieInfo movieInfo, Date startTime) {
+    public Schedule(Hall hall, MovieInfo movieInfo, Date startTime, Date movieStartTime) {
         this.hall = hall;
         this.movieInfo = movieInfo;
         this.startTime = startTime;
+        this.movieStartTime = movieStartTime;
     }
 
     public Hall getHall() {
@@ -36,4 +38,14 @@ public class Schedule {
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
+
+    public Date getMovieStartTime() {
+        return movieStartTime;
+    }
+
+    public void setMovieStartTime(Date movieStartTime) {
+        this.movieStartTime = movieStartTime;
+    }
+
+
 }

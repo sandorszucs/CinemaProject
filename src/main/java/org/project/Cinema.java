@@ -3,22 +3,22 @@ import java.util.List;
 
 public class Cinema {
 
-    private RegisteredUser registeredUser;
+    private User User;
     private Schedule schedule;
     private List<Hall> Hall;
 
-    public Cinema(RegisteredUser registeredUser, Schedule schedule, List<Hall> hall) {
-        this.registeredUser = registeredUser;
+    public Cinema(User User, Schedule schedule, List<Hall> hall) {
+        this.User = User;
         this.schedule = schedule;
         Hall = hall;
     }
 
-    public RegisteredUser getRegisteredUser() {
-        return registeredUser;
+    public User getUser() {
+        return User;
     }
 
-    public void setRegisteredUser(RegisteredUser registeredUser) {
-        this.registeredUser = registeredUser;
+    public void setUser(User User) {
+        this.User = User;
     }
 
     public Schedule getSchedule() {

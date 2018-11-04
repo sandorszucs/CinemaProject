@@ -2,46 +2,31 @@ package org.project;
 import java.util.Date;
 
 public class Reservation {
-    private int ticketAvaibleNr;
-    private Date date;
-    private Date time;
+    private int ticketAvailableNr;
+    private Date dateTime;
     private Boolean isPayed;
 
-    public Reservation(int ticketAvaibleNr, Date date, Date time, Boolean isPayed) {
-        this.ticketAvaibleNr = ticketAvaibleNr;
-        this.date = date;
-        this.time = time;
+
+    public Reservation(int ticketAvailableNr, Date dateTime, Boolean isPayed) {
+        this.ticketAvailableNr = ticketAvailableNr;
+        this.dateTime = dateTime;
         this.isPayed = isPayed;
     }
 
-    public void selectSeat() {
+    public int getTicketAvailableNr() {
+        return ticketAvailableNr;
     }
 
-    public void changeSeat() {
+    public void setTicketAvailableNr(int ticketAvailableNr) {
+        this.ticketAvailableNr = ticketAvailableNr;
     }
 
-    public int getTicketAvaibleNr() {
-        return ticketAvaibleNr;
+    public Date getDateTime() {
+        return dateTime;
     }
 
-    public void setTicketAvaibleNr(int ticketAvaibleNr) {
-        this.ticketAvaibleNr = ticketAvaibleNr;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Boolean getPayed() {
