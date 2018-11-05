@@ -25,7 +25,8 @@ public class Cinema {
         return schedule;
     }
 
-    public void setSchedule(Schedule schedule) {
+    public void setSchedule(Schedule schedule)
+    {
         this.schedule = schedule;
     }
 
