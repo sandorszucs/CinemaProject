@@ -11,7 +11,7 @@ public class UserRepository {
 //        userCreate();
 //        userUpdate();
 //        userDelete();
-//        userRead();
+        userRead();
     }
 
     // WITH THIS METHOD YOU CAN CREATE A FULL ROW IN A TABLE
@@ -104,12 +104,12 @@ public class UserRepository {
         Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         Statement st = conn.createStatement();
 
-        ResultSet rs = st.executeQuery("SELECT name, password FROM User");
+        ResultSet rs = st.executeQuery("SELECT name, password FROM public.\"User\"");
 
         List<Users> listOfUsers = new ArrayList();
         while (rs.next()) {
             Users u = new Users();
-            u.setUsername(rs.getString("username").trim());
+            u.setUsername(rs.getString("name").trim());
             u.setPassword(rs.getString("password").trim());
 
             listOfUsers.add(u);
