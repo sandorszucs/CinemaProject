@@ -8,9 +8,9 @@ public class MovieInfo {
     private String movieType;
     private String director;
     private String[] cast;
-    private char venue;
+    private String venue;
 
-    public MovieInfo(int id, String title, String movieType, String director, String[] cast, char venue) {
+    public MovieInfo(int id, String title, String movieType, String director, String[] cast, String venue) {
         this.id = id;
         this.title = title;
         this.movieType = movieType;
@@ -61,11 +61,11 @@ public class MovieInfo {
         this.cast = cast;
     }
 
-    public char getVenue() {
+    public String getVenue() {
         return venue;
     }
 
-    public void setVenue(char venue) {
+    public void setVenue(String venue) {
         this.venue = venue;
     }
 }

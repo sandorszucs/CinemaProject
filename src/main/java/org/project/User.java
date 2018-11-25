@@ -5,7 +5,6 @@ public class User {
     private String name;
     private char id;
     private String password;
-    private char gender;
     private String telephoneNumber;
     private String address;
 
@@ -13,6 +12,9 @@ public class User {
     public void bookTicket (){ }
     public void cancelTicket() {}
     public void makePayment() {}
+    public void addMovieRecords() {}
+    public void deleteMovieRecords(){}
+    public void updateMovieRecords(){}
 
 
     public String getName() {
@@ -37,14 +39,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public char getGender() {
-        return gender;
-    }
-
-    public void setGender(char gender) {
-        this.gender = gender;
     }
 
     public String getTelephoneNumber() {

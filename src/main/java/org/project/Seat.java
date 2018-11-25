@@ -1,20 +1,20 @@
 package org.project;
 public class Seat {
 
-    private char row;
+    private int row;
     private int seatNumber;
 
 
-    public Seat(char row, int seatNumber) {
+    public Seat(int row, int seatNumber) {
         this.row = row;
         this.seatNumber = seatNumber;
     }
 
-    public char getRow() {
+    public int getRow() {
         return row;
     }
 
-    public void setRow(char row) {
+    public void setRow(int row) {
         this.row = row;
     }
 

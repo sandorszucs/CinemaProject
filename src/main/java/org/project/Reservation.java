@@ -5,14 +5,15 @@ public class Reservation {
     private int ticketAvailableNr;
     private Date dateTime;
     private Boolean isPayed;
-    private String place;
+    private Hall hall;
+    private MovieInfo movieInfo;
 
 
-    public Reservation(int ticketAvailableNr, Date dateTime, Boolean isPayed, String place) {
+    public Reservation(int ticketAvailableNr, Date dateTime, Boolean isPayed, Hall hall) {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.isPayed = isPayed;
-        this.place = place;
+        this.hall = hall;
     }
 
     public int getTicketAvailableNr() {
@@ -39,11 +40,15 @@ public class Reservation {
         isPayed = payed;
     }
 
-    public String getPlace() {
-        return place;
+    public Hall getHall() {
+        return hall;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setHall(Hall hall) {
+        this.hall = hall;
     }
+
+    public void makeReservation() {
+        movieInfo.getTitle();
+    };
 }
