@@ -1,4 +1,4 @@
-package org.project;
+package org.project.domain;
 import java.util.Date;
 
 public class Reservation {

@@ -1,5 +1,4 @@
-package org.project;
-import java.util.Date;
+package org.project.domain;
 
 public class MovieInfo {
 

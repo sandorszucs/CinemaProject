@@ -1,4 +1,4 @@
-package org.project;
+package org.project.domain;
 public class Hall {
 
     private String location;
