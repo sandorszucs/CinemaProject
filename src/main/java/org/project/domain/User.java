@@ -1,11 +1,30 @@
 package org.project.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="User")
 public class User {
 
-    private String name;
-    private char id;
+    @Id
+    @GeneratedValue(generator = "project_generator")
+    @SequenceGenerator(
+            name = "project_generator",
+            sequenceName = "project_sequence",
+            initialValue = 1
+    )
+    @Column(name="id", unique = true)
+    private long id;
+
+    @Column(nullable = true)
+    private String firstName;
+    @Column(nullable = true)
+    private String lastName;
+    @Column(nullable = true)
     private String password;
+    @Column(nullable = true)
     private String telephoneNumber;
+    @Column(nullable = true)
     private String address;
 
     public void viewMovies() { }
@@ -16,20 +35,27 @@ public class User {
     public void deleteMovieRecords(){}
     public void updateMovieRecords(){}
 
-
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public char getId() {
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(char id) {
+    public void setId(long id) {
         this.id = id;
     }
 

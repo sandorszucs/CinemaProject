@@ -18,8 +18,6 @@ public class MovieInfo {
         this.venue = venue;
     }
 
-    public void addMovie () {}
-
     public int getId() {
         return id;
     }
