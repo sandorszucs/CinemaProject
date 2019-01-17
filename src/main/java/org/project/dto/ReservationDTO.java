@@ -8,11 +8,20 @@ import java.util.Objects;
 
 public class ReservationDTO {
 
+    private long id;
     private int ticketAvailableNr;
     private Date dateTime;
     private Boolean isPayed;
     private Hall hall;
     private MovieInfo movieInfo;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public int getTicketAvailableNr() {
         return ticketAvailableNr;
@@ -57,7 +66,8 @@ public class ReservationDTO {
     @Override
     public String toString() {
         return "ReservationDTO{" +
-                "ticketAvailableNr=" + ticketAvailableNr +
+                "id=" + id +
+                ", ticketAvailableNr=" + ticketAvailableNr +
                 ", dateTime=" + dateTime +
                 ", isPayed=" + isPayed +
                 ", hall=" + hall +
@@ -70,7 +80,8 @@ public class ReservationDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReservationDTO that = (ReservationDTO) o;
-        return ticketAvailableNr == that.ticketAvailableNr &&
+        return id == that.id &&
+                ticketAvailableNr == that.ticketAvailableNr &&
                 Objects.equals(dateTime, that.dateTime) &&
                 Objects.equals(isPayed, that.isPayed) &&
                 Objects.equals(hall, that.hall) &&
@@ -80,7 +91,7 @@ public class ReservationDTO {
     @Override
     public int hashCode() {
 
-        return Objects.hash(ticketAvailableNr, dateTime, isPayed, hall, movieInfo);
+        return Objects.hash(id, ticketAvailableNr, dateTime, isPayed, hall, movieInfo);
     }
 }
 
