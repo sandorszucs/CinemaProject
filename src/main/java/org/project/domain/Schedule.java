@@ -1,10 +1,25 @@
 package org.project.domain;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "schedule")
 public class Schedule {
 
+    @Id
+    @Column(name = "hall")
+    @GeneratedValue(generator = "hall_generator")
+    @SequenceGenerator(
+            name = "hall_generator",
+            sequenceName = "hall_sequence",
+            initialValue = 1
+    )
     private Hall hall;
+
+    @Column(name = "movieInfo")
     private MovieInfo movieInfo;
+
+    @Column(name = "movieStartTime")
     private Date movieStartTime;
 
     public Schedule(Hall hall, MovieInfo movieInfo, Date movieStartTime) {

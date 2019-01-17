@@ -1,7 +1,22 @@
 package org.project.domain;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "seat")
 public class Seat {
 
+    @Id
+    @Column(name = "row")
+    @GeneratedValue (generator = "seat_generator")
+    @SequenceGenerator(
+            name = "seat_generator",
+            sequenceName = "seat_sequence",
+            initialValue = 1
+    )
+
     private int row;
+    @Column(name = "seatNumber")
     private int seatNumber;
 
 

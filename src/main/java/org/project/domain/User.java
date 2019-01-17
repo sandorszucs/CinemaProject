@@ -3,17 +3,22 @@ package org.project.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="User")
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(generator = "project_generator")
+    @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(
-            name = "project_generator",
-            sequenceName = "project_sequence",
+            name = "user_generator",
+            sequenceName = "user_sequence",
             initialValue = 1
     )
-    @Column(name="id", unique = true)
+
+//    @OneToOne
+//    @JoinColumn (name = "Transaction_Id")
+
+
+    @Column(name = "id", unique = true)
     private long id;
 
     @Column(nullable = true)
@@ -27,13 +32,26 @@ public class User {
     @Column(nullable = true)
     private String address;
 
-    public void viewMovies() { }
-    public void bookTicket (){ }
-    public void cancelTicket() {}
-    public void makePayment() {}
-    public void addMovieRecords() {}
-    public void deleteMovieRecords(){}
-    public void updateMovieRecords(){}
+    public void viewMovies() {
+    }
+
+    public void bookTicket() {
+    }
+
+    public void cancelTicket() {
+    }
+
+    public void makePayment() {
+    }
+
+    public void addMovieRecords() {
+    }
+
+    public void deleteMovieRecords() {
+    }
+
+    public void updateMovieRecords() {
+    }
 
     public String getFirstName() {
         return firstName;

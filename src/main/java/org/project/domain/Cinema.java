@@ -1,7 +1,13 @@
 package org.project.domain;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
+@Entity
+@Table(name = "cinema")
 public class Cinema {
+
 
     private User user;
     private Schedule schedule;

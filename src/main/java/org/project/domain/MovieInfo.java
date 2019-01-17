@@ -1,12 +1,34 @@
 package org.project.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "movieInfo")
 public class MovieInfo {
 
+    @Id
+    @Column(name = "Id")
+    @GeneratedValue(generator = "movieInfo_generator")
+    @SequenceGenerator(
+            name = "movieInfo_generator",
+            sequenceName = "movieInfo_sequence",
+            initialValue = 1
+    )
     private int id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "movieType")
     private String movieType;
+
+    @Column(name = "director")
     private String director;
+
+    @Column(name = "cast")
     private String[] cast;
+
+    @Column(name = "venue")
     private String venue;
 
     public MovieInfo(int id, String title, String movieType, String director, String[] cast, String venue) {

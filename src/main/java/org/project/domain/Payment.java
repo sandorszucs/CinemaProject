@@ -1,8 +1,27 @@
 package org.project.domain;
 
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "payment")
 public class Payment {
-    private double amount;
+
+    @Id
+    @Column(name = "transactionId")
+    @GeneratedValue(generator = "payment_generator")
+    @SequenceGenerator(
+            name = "payment_generator",
+            sequenceName = "payment_sequence",
+            initialValue = 1
+    )
+
     private int transactionId;
+
+    @Column(name = "amount")
+    private double amount;
+
+
 
     public Payment(double amount, int transactionId) {
         this.amount = amount;

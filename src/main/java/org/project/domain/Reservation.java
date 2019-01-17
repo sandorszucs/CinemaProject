@@ -1,11 +1,35 @@
 package org.project.domain;
+import javax.persistence.*;
 import java.util.Date;
 
+
+@Entity
+@Table(name = "reservation")
 public class Reservation {
+
+    @Id
+    @Column(name = "Id")
+    @GeneratedValue(generator = "reservation_generator")
+    @SequenceGenerator(
+            name = "reservation_generator",
+            sequenceName = "reservation_sequence",
+            initialValue = 1
+    )
+    private long id;
+
+    @Column(name = "ticketAvailableNr")
     private int ticketAvailableNr;
+
+    @Column(name = "dateTime")
     private Date dateTime;
+
+    @Column(name = "isPayed")
     private Boolean isPayed;
+
+    @Column(name = "hall")
     private Hall hall;
+
+    @Column (name = "movieInfo")
     private MovieInfo movieInfo;
 
 
@@ -14,6 +38,14 @@ public class Reservation {
         this.dateTime = dateTime;
         this.isPayed = isPayed;
         this.hall = hall;
+    }
+
+    public MovieInfo getMovieInfo() {
+        return movieInfo;
+    }
+
+    public void setMovieInfo(MovieInfo movieInfo) {
+        this.movieInfo = movieInfo;
     }
 
     public int getTicketAvailableNr() {
