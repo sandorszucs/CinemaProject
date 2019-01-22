@@ -1,9 +1,10 @@
 package org.project.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table (name = "hall")
+@Table (name = "halls")
 public class Hall {
 
     @Id
@@ -21,6 +22,11 @@ public class Hall {
 
     @Column(name = "capacity")
     private int capacity;
+
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "seat_id") //am facut bine relatia?
+    private List<Seat> seats;
+    // un hall are mai multe seaturi
 
     public Hall(String location, int capacity) {
         this.location = location;

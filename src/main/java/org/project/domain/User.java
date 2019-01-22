@@ -1,6 +1,7 @@
 package org.project.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -14,8 +15,9 @@ public class User {
             initialValue = 1
     )
 
-//    @OneToOne
-//    @JoinColumn (name = "Transaction_Id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
+    private List<Payment> payments;
 
 
     @Column(name = "id", unique = true)

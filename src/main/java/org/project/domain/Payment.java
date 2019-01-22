@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "payment")
+@Table(name = "payments")
 public class Payment {
 
     @Id
@@ -15,6 +15,9 @@ public class Payment {
             sequenceName = "payment_sequence",
             initialValue = 1
     )
+
+    @ManyToOne // kell ide meg valami?
+    private User user;
 
     private int transactionId;
 

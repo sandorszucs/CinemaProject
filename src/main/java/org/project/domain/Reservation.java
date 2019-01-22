@@ -1,10 +1,12 @@
 package org.project.domain;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservations")
 public class Reservation {
 
     @Id
@@ -20,32 +22,37 @@ public class Reservation {
     @Column(name = "ticketAvailableNr")
     private int ticketAvailableNr;
 
-    @Column(name = "dateTime")
+    @Column(name = "createdDateTime")
     private Date dateTime;
 
     @Column(name = "isPayed")
     private Boolean isPayed;
 
-    @Column(name = "hall")
-    private Hall hall;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
 
-    @Column (name = "movieInfo")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "movieInfo_id")
     private MovieInfo movieInfo;
 
+    private Schedule schedule; // am adaugat un obiect de schedule in reservation?
+    private List<Seat> reservedSeat = new ArrayList<>(); // am creat o lista in reservation care imi mentine ce loc a fost rezervat?
+    private Payment payment; // ez meglenne?
 
-    public Reservation(int ticketAvailableNr, Date dateTime, Boolean isPayed, Hall hall) {
+    public Reservation(long id, int ticketAvailableNr, Date dateTime, Boolean isPayed) {
+        this.id = id;
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.isPayed = isPayed;
-        this.hall = hall;
     }
 
-    public MovieInfo getMovieInfo() {
-        return movieInfo;
+    public long getId() {
+        return id;
     }
 
-    public void setMovieInfo(MovieInfo movieInfo) {
-        this.movieInfo = movieInfo;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getTicketAvailableNr() {
@@ -72,15 +79,4 @@ public class Reservation {
         isPayed = payed;
     }
 
-    public Hall getHall() {
-        return hall;
-    }
-
-    public void setHall(Hall hall) {
-        this.hall = hall;
-    }
-
-    public void makeReservation() {
-        movieInfo.getTitle();
-    };
 }
