@@ -16,9 +16,6 @@ public class Payment {
             initialValue = 1
     )
 
-    @ManyToOne // kell ide meg valami?
-    private User user;
-
     private int transactionId;
 
     @Column(name = "amount")
@@ -47,8 +44,8 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
-    public void confirmTransaction(){}
-    public void cancelTransaction(){}
+//    public void confirmTransaction(){}
+//    public void cancelTransaction(){}
 
 
 }

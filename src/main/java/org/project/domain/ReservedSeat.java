@@ -15,7 +15,10 @@ public class ReservedSeat {
             initialValue = 1
     )
     private long id;
-    @Column (name = "seat")
+
+//    @Column (name = "seat")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "seat_id")
     private Seat seat;
 
 

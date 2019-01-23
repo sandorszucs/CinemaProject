@@ -1,6 +1,9 @@
 package org.project.domain;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "schedules")
@@ -25,6 +28,10 @@ public class Schedule {
 
     @Column(name = "movieStartTime")
     private Date movieStartTime;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservedseats_id")
+    private List<ReservedSeat> reservedSeats = new ArrayList<>();
 
     public Schedule(long id, Hall hall, MovieInfo movieInfo, Date movieStartTime) {
         this.id = id;

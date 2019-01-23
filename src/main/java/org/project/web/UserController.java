@@ -16,12 +16,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/{userId}"}, method = RequestMethod.GET)
-    public User findUser(@PathVariable("userId") Long userId) {
+    @RequestMapping(path = {"/{userId}"}, method = RequestMethod.GET)
+    public User findUser(@PathVariable("userId") long userId) {
         LOGGER.info("userId >> {}", userId);
 
 
-        return userService.getUser(userId);
+        return userService.getUserbyId(userId);
     }
-
 }

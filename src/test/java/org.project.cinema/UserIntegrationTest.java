@@ -32,5 +32,5 @@ public class UserIntegrationTest {
         user.setFirstName("Szucs");
         user.setLastName("Sandor");
         userService.saveUser(user);
-    }
+        }
 }

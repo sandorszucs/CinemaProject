@@ -21,14 +21,6 @@ public class Seat {
     @Column(name = "seatNumber")
     private int seatNumber;
 
-    @ManyToOne // kell ez is ide?
-    private Reservation reservation;
-
-    @ManyToOne //kell ide meg valami?
-    private Hall hall;
-
-    // kell-e legyen a Hall-nak egy available seat fildje?????
-
     public Seat(long id, int row, int seatNumber) {
         this.id = id;
         this.row = row;

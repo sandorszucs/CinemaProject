@@ -31,8 +31,6 @@ public class MovieInfo {
     @Column(name = "venue")
     private String venue;
 
-    @ManyToOne // kell ez ide?
-    private Reservation reservation;
 
     public MovieInfo(long id, String title, String movieType, String director, String[] cast, String venue) {
         this.id = id;

@@ -24,9 +24,9 @@ public class Hall {
     private int capacity;
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "seat_id") //am facut bine relatia?
+    @JoinColumn(name = "seat_id")
     private List<Seat> seats;
-    // un hall are mai multe seaturi
+
 
     public Hall(String location, int capacity) {
         this.location = location;

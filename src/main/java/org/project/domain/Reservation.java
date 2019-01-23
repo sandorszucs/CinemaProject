@@ -28,17 +28,31 @@ public class Reservation {
     @Column(name = "isPayed")
     private Boolean isPayed;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "seat_id")
-    private Seat seat;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "movieInfo_id")
     private MovieInfo movieInfo;
 
-    private Schedule schedule; // am adaugat un obiect de schedule in reservation?
-    private List<Seat> reservedSeat = new ArrayList<>(); // am creat o lista in reservation care imi mentine ce loc a fost rezervat?
-    private Payment payment; // ez meglenne?
+
+    //@JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
+     //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "seat_id")
+    //private Seat seat;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
+
+
+
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
+    @JoinColumn (name = "reservedSeat_id")
+    private List<ReservedSeat> reservedSeat = new ArrayList<>();
+
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
     public Reservation(long id, int ticketAvailableNr, Date dateTime, Boolean isPayed) {
         this.id = id;

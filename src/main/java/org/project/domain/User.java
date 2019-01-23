@@ -34,26 +34,28 @@ public class User {
     @Column(nullable = true)
     private String address;
 
-    public void viewMovies() {
-    }
+//    public void viewMovies() {
+//    }
+//
+//    public void bookTicket() {
+//    }
+//
+//    public void cancelTicket() {
+//    }
+//
+//    public void makePayment() {
+//    }
+//
+//    public void addMovieRecords() {
+//    }
+//
+//    public void deleteMovieRecords() {
+//    }
+//
+//    public void updateMovieRecords() {
+//    }
 
-    public void bookTicket() {
-    }
-
-    public void cancelTicket() {
-    }
-
-    public void makePayment() {
-    }
-
-    public void addMovieRecords() {
-    }
-
-    public void deleteMovieRecords() {
-    }
-
-    public void updateMovieRecords() {
-    }
+    // DO I NEED ALL THESE?
 
     public String getFirstName() {
         return firstName;

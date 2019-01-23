@@ -41,7 +41,11 @@ public class UserService {
     }
 
 
-    public User getUser(long userId) {
+
+    public User getUserbyId(long userId) {
+        if (userId == 0){
+            throw new IllegalArgumentException("No SUCH ID found");
+        }
 
         return userRepository.findOne(userId);
     }
