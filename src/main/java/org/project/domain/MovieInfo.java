@@ -25,20 +25,20 @@ public class MovieInfo {
     @Column(name = "director")
     private String director;
 
-    @Column(name = "cast")
-    private String cast;
+    @Column(name = "actor")
+    private String actor;
 
     @Column(name = "venue")
     private String venue;
 
 
 
-    public MovieInfo(long id, String title, String movieType, String director, String cast, String venue) {
+    public MovieInfo(long id, String title, String movieType, String director, String actor, String venue) {
         this.id = id;
         this.title = title;
         this.movieType = movieType;
         this.director = director;
-        this.cast = cast;
+        this.actor = actor;
         this.venue = venue;
     }
 
@@ -75,11 +75,11 @@ public class MovieInfo {
     }
 
     public String getCast() {
-        return cast;
+        return actor;
     }
 
     public void setCast(String cast) {
-        this.cast = cast;
+        this.actor = cast;
     }
 
     public String getVenue() {
