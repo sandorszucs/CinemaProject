@@ -5,18 +5,27 @@ import java.util.Objects;
 
 public class MovieInfoDTO {
 
-    private int id;
+    private long id;
     private String title;
     private String movieType;
     private String director;
-    private String[] cast;
+    private String actor;
     private String venue;
 
-    public int getId() {
+    public MovieInfoDTO(long id, String title, String movieType, String director, String actor, String venue) {
+        this.id = id;
+        this.title = title;
+        this.movieType = movieType;
+        this.director = director;
+        this.actor = actor;
+        this.venue = venue;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -44,12 +53,12 @@ public class MovieInfoDTO {
         this.director = director;
     }
 
-    public String[] getCast() {
-        return cast;
+    public String getActor() {
+        return actor;
     }
 
-    public void setCast(String[] cast) {
-        this.cast = cast;
+    public void setActor(String actor) {
+        this.actor = actor;
     }
 
     public String getVenue() {
@@ -67,7 +76,7 @@ public class MovieInfoDTO {
                 ", title='" + title + '\'' +
                 ", movieType='" + movieType + '\'' +
                 ", director='" + director + '\'' +
-                ", cast=" + Arrays.toString(cast) +
+                ", actor='" + actor + '\'' +
                 ", venue='" + venue + '\'' +
                 '}';
     }
@@ -81,15 +90,13 @@ public class MovieInfoDTO {
                 Objects.equals(title, that.title) &&
                 Objects.equals(movieType, that.movieType) &&
                 Objects.equals(director, that.director) &&
-                Arrays.equals(cast, that.cast) &&
+                Objects.equals(actor, that.actor) &&
                 Objects.equals(venue, that.venue);
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(id, title, movieType, director, venue);
-        result = 31 * result + Arrays.hashCode(cast);
-        return result;
+        return Objects.hash(id, title, movieType, director, actor, venue);
     }
 }

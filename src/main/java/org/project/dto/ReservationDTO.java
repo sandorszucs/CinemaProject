@@ -1,9 +1,10 @@
 package org.project.dto;
 
-import org.project.domain.Hall;
-import org.project.domain.MovieInfo;
+import org.project.domain.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ReservationDTO {
@@ -14,6 +15,33 @@ public class ReservationDTO {
     private Boolean isPayed;
     private Hall hall;
     private MovieInfo movieInfo;
+    private Schedule schedule;
+    private List<ReservedSeat> reservedSeat = new ArrayList<>();
+    private Payment payment;
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public List<ReservedSeat> getReservedSeat() {
+        return reservedSeat;
+    }
+
+    public void setReservedSeat(List<ReservedSeat> reservedSeat) {
+        this.reservedSeat = reservedSeat;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
     public long getId() {
         return id;
@@ -72,6 +100,9 @@ public class ReservationDTO {
                 ", isPayed=" + isPayed +
                 ", hall=" + hall +
                 ", movieInfo=" + movieInfo +
+                ", schedule=" + schedule +
+                ", reservedSeat=" + reservedSeat +
+                ", payment=" + payment +
                 '}';
     }
 
@@ -85,13 +116,16 @@ public class ReservationDTO {
                 Objects.equals(dateTime, that.dateTime) &&
                 Objects.equals(isPayed, that.isPayed) &&
                 Objects.equals(hall, that.hall) &&
-                Objects.equals(movieInfo, that.movieInfo);
+                Objects.equals(movieInfo, that.movieInfo) &&
+                Objects.equals(schedule, that.schedule) &&
+                Objects.equals(reservedSeat, that.reservedSeat) &&
+                Objects.equals(payment, that.payment);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, ticketAvailableNr, dateTime, isPayed, hall, movieInfo);
+        return Objects.hash(id, ticketAvailableNr, dateTime, isPayed, hall, movieInfo, schedule, reservedSeat, payment);
     }
 }
 

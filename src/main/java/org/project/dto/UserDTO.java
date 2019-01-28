@@ -1,5 +1,8 @@
 package org.project.dto;
 
+import org.project.domain.Payment;
+
+import java.util.List;
 import java.util.Objects;
 
 public class UserDTO {
@@ -10,7 +13,15 @@ public class UserDTO {
     private String password;
     private String telephoneNumber;
     private String address;
+    private List<Payment> payments;
 
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 
     public long getId() {
         return id;
@@ -70,6 +81,7 @@ public class UserDTO {
                 ", password='" + password + '\'' +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", payments=" + payments +
                 '}';
     }
 
@@ -83,12 +95,13 @@ public class UserDTO {
                 Objects.equals(lastName, userDTO.lastName) &&
                 Objects.equals(password, userDTO.password) &&
                 Objects.equals(telephoneNumber, userDTO.telephoneNumber) &&
-                Objects.equals(address, userDTO.address);
+                Objects.equals(address, userDTO.address) &&
+                Objects.equals(payments, userDTO.payments);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, password, telephoneNumber, address);
+        return Objects.hash(id, firstName, lastName, password, telephoneNumber, address, payments);
     }
 }

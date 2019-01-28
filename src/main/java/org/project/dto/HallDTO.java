@@ -1,5 +1,8 @@
 package org.project.dto;
 
+import org.project.domain.Seat;
+
+import java.util.List;
 import java.util.Objects;
 
 public class HallDTO {
@@ -7,6 +10,15 @@ public class HallDTO {
     private long id;
     private String location;
     private int capacity;
+    private List<Seat> seats;
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
 
     public long getId() {
         return id;
@@ -38,6 +50,7 @@ public class HallDTO {
                 "id=" + id +
                 ", location='" + location + '\'' +
                 ", capacity=" + capacity +
+                ", seats=" + seats +
                 '}';
     }
 
@@ -48,12 +61,13 @@ public class HallDTO {
         HallDTO hallDTO = (HallDTO) o;
         return id == hallDTO.id &&
                 capacity == hallDTO.capacity &&
-                Objects.equals(location, hallDTO.location);
+                Objects.equals(location, hallDTO.location) &&
+                Objects.equals(seats, hallDTO.seats);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, location, capacity);
+        return Objects.hash(id, location, capacity, seats);
     }
 }
