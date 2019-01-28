@@ -33,20 +33,14 @@ public class Reservation {
     @JoinColumn(name = "movieInfo_id")
     private MovieInfo movieInfo;
 
-
-    //@JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
-     //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //@JoinColumn(name = "seat_id")
-    //private Seat seat;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
 
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //@JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
+    @JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
     @JoinColumn (name = "reservedSeat_id")
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
@@ -59,6 +53,38 @@ public class Reservation {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.isPayed = isPayed;
+    }
+
+    public MovieInfo getMovieInfo() {
+        return movieInfo;
+    }
+
+    public void setMovieInfo(MovieInfo movieInfo) {
+        this.movieInfo = movieInfo;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public List<ReservedSeat> getReservedSeat() {
+        return reservedSeat;
+    }
+
+    public void setReservedSeat(List<ReservedSeat> reservedSeat) {
+        this.reservedSeat = reservedSeat;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public long getId() {

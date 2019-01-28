@@ -33,6 +33,22 @@ public class Hall {
         this.capacity = capacity;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
     public String getLocation() {
         return location;
     }

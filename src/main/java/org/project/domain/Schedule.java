@@ -20,10 +20,12 @@ public class Schedule {
 
     private long id;
 
-    @Column (name = "name")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "hall_id")
     private Hall hall;
 
-    @Column(name = "movieInfo")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "movieInfo_id")
     private MovieInfo movieInfo;
 
     @Column(name = "movieStartTime")
@@ -38,6 +40,14 @@ public class Schedule {
         this.hall = hall;
         this.movieInfo = movieInfo;
         this.movieStartTime = movieStartTime;
+    }
+
+    public List<ReservedSeat> getReservedSeats() {
+        return reservedSeats;
+    }
+
+    public void setReservedSeats(List<ReservedSeat> reservedSeats) {
+        this.reservedSeats = reservedSeats;
     }
 
     public long getId() {

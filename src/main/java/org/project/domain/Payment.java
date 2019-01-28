@@ -21,12 +21,11 @@ public class Payment {
     @Column(name = "amount")
     private double amount;
 
-
-
     public Payment(double amount, int transactionId) {
         this.amount = amount;
         this.transactionId = transactionId;
     }
+
 
     public double getAmount() {
         return amount;
@@ -46,6 +45,5 @@ public class Payment {
 
 //    public void confirmTransaction(){}
 //    public void cancelTransaction(){}
-
 
 }

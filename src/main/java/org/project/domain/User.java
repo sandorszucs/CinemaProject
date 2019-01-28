@@ -8,6 +8,7 @@ import java.util.List;
 public class User {
 
     @Id
+    @Column(name = "id", unique = true)
     @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(
             name = "user_generator",
@@ -15,25 +16,28 @@ public class User {
             initialValue = 1
     )
 
+    private long id;
+
+    @Column(name = "firstName", nullable = true)
+    private String firstName;
+
+    @Column(name = "lastName", nullable = true)
+    private String lastName;
+
+    @Column(name = "password", nullable = true)
+    private String password;
+
+    @Column(name = "telephoneNumber", nullable = true)
+    private String telephoneNumber;
+
+    @Column(name = "address", nullable = true)
+    private String address;
+
+
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
     private List<Payment> payments;
-
-
-    @Column(name = "id", unique = true)
-    private long id;
-
-    @Column(nullable = true)
-    private String firstName;
-    @Column(nullable = true)
-    private String lastName;
-    @Column(nullable = true)
-    private String password;
-    @Column(nullable = true)
-    private String telephoneNumber;
-    @Column(nullable = true)
-    private String address;
-
 //    public void viewMovies() {
 //    }
 //
@@ -56,6 +60,14 @@ public class User {
 //    }
 
     // DO I NEED ALL THESE?
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 
     public String getFirstName() {
         return firstName;

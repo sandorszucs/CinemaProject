@@ -3,7 +3,7 @@ package org.project.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "movieInfos")
+@Table(name = "movieInfo")
 public class MovieInfo {
 
     @Id
@@ -26,13 +26,14 @@ public class MovieInfo {
     private String director;
 
     @Column(name = "cast")
-    private String[] cast;
+    private String cast;
 
     @Column(name = "venue")
     private String venue;
 
 
-    public MovieInfo(long id, String title, String movieType, String director, String[] cast, String venue) {
+
+    public MovieInfo(long id, String title, String movieType, String director, String cast, String venue) {
         this.id = id;
         this.title = title;
         this.movieType = movieType;
@@ -73,11 +74,11 @@ public class MovieInfo {
         this.director = director;
     }
 
-    public String[] getCast() {
+    public String getCast() {
         return cast;
     }
 
-    public void setCast(String[] cast) {
+    public void setCast(String cast) {
         this.cast = cast;
     }
 

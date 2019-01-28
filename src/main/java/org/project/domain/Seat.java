@@ -27,6 +27,8 @@ public class Seat {
         this.seatNumber = seatNumber;
     }
 
+
+
     public long getId() {
         return id;
     }
