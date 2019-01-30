@@ -1,7 +1,5 @@
 package org.project.dto;
 
-import org.project.domain.Seat;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -10,13 +8,13 @@ public class HallDTO {
     private long id;
     private String location;
     private int capacity;
-    private List<Seat> seats;
+    private List<SeatDTO> seats;
 
-    public List<Seat> getSeats() {
+    public List<SeatDTO> getSeats() {
         return seats;
     }
 
-    public void setSeats(List<Seat> seats) {
+    public void setSeats(List<SeatDTO> seats) {
         this.seats = seats;
     }
 

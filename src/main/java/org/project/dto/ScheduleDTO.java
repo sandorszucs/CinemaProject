@@ -4,7 +4,6 @@ import org.project.domain.Hall;
 import org.project.domain.MovieInfo;
 import org.project.domain.ReservedSeat;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -12,10 +11,11 @@ import java.util.Objects;
 public class ScheduleDTO {
 
     private long id;
-    private Hall hall;
-    private MovieInfo movieInfo;
+
+    private HallDTO hall;
     private Date movieStartTime;
-    private List<ReservedSeat> reservedSeats = new ArrayList<>();
+    private MovieInfoDTO movieInfo;
+    private List<ReservedSeatDTO> reservedSeats;
 
     public long getId() {
         return id;
@@ -25,28 +25,12 @@ public class ScheduleDTO {
         this.id = id;
     }
 
-    public List<ReservedSeat> getReservedSeats() {
-        return reservedSeats;
-    }
-
-    public void setReservedSeats(List<ReservedSeat> reservedSeats) {
-        this.reservedSeats = reservedSeats;
-    }
-
-    public Hall getHall() {
+    public HallDTO getHall() {
         return hall;
     }
 
-    public void setHall(Hall hall) {
+    public void setHall(HallDTO hall) {
         this.hall = hall;
-    }
-
-    public MovieInfo getMovieInfo() {
-        return movieInfo;
-    }
-
-    public void setMovieInfo(MovieInfo movieInfo) {
-        this.movieInfo = movieInfo;
     }
 
     public Date getMovieStartTime() {
@@ -57,14 +41,29 @@ public class ScheduleDTO {
         this.movieStartTime = movieStartTime;
     }
 
+    public MovieInfoDTO getMovieInfo() {
+        return movieInfo;
+    }
+
+    public void setMovieInfo(MovieInfoDTO movieInfo) {
+        this.movieInfo = movieInfo;
+    }
+
+    public List<ReservedSeatDTO> getReservedSeats() {
+        return reservedSeats;
+    }
+
+    public void setReservedSeats(List<ReservedSeatDTO> reservedSeats) {
+        this.reservedSeats = reservedSeats;
+    }
 
     @Override
     public String toString() {
         return "ScheduleDTO{" +
                 "id=" + id +
                 ", hall=" + hall +
-                ", movieInfo=" + movieInfo +
                 ", movieStartTime=" + movieStartTime +
+                ", movieInfo=" + movieInfo +
                 ", reservedSeats=" + reservedSeats +
                 '}';
     }
@@ -76,14 +75,14 @@ public class ScheduleDTO {
         ScheduleDTO that = (ScheduleDTO) o;
         return id == that.id &&
                 Objects.equals(hall, that.hall) &&
-                Objects.equals(movieInfo, that.movieInfo) &&
                 Objects.equals(movieStartTime, that.movieStartTime) &&
+                Objects.equals(movieInfo, that.movieInfo) &&
                 Objects.equals(reservedSeats, that.reservedSeats);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, hall, movieInfo, movieStartTime, reservedSeats);
+        return Objects.hash(id, hall, movieStartTime, movieInfo, reservedSeats);
     }
 }

@@ -1,8 +1,6 @@
 package org.project.dto;
 
-import org.project.domain.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,35 +11,12 @@ public class ReservationDTO {
     private int ticketAvailableNr;
     private Date dateTime;
     private Boolean isPayed;
-    private Hall hall;
-    private MovieInfo movieInfo;
-    private Schedule schedule;
-    private List<ReservedSeat> reservedSeat = new ArrayList<>();
-    private Payment payment;
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
-    public List<ReservedSeat> getReservedSeat() {
-        return reservedSeat;
-    }
-
-    public void setReservedSeat(List<ReservedSeat> reservedSeat) {
-        this.reservedSeat = reservedSeat;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
+    private HallDTO hall;
+    private MovieInfoDTO movieInfo;
+    private ScheduleDTO schedule;
+    private List<ReservedSeatDTO> reservedSeat;
+    private PaymentDTO payment;
 
     public long getId() {
         return id;
@@ -75,20 +50,44 @@ public class ReservationDTO {
         isPayed = payed;
     }
 
-    public Hall getHall() {
+    public HallDTO getHall() {
         return hall;
     }
 
-    public void setHall(Hall hall) {
+    public void setHall(HallDTO hall) {
         this.hall = hall;
     }
 
-    public MovieInfo getMovieInfo() {
+    public MovieInfoDTO getMovieInfo() {
         return movieInfo;
     }
 
-    public void setMovieInfo(MovieInfo movieInfo) {
+    public void setMovieInfo(MovieInfoDTO movieInfo) {
         this.movieInfo = movieInfo;
+    }
+
+    public ScheduleDTO getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(ScheduleDTO schedule) {
+        this.schedule = schedule;
+    }
+
+    public List<ReservedSeatDTO> getReservedSeat() {
+        return reservedSeat;
+    }
+
+    public void setReservedSeat(List<ReservedSeatDTO> reservedSeat) {
+        this.reservedSeat = reservedSeat;
+    }
+
+    public PaymentDTO getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentDTO payment) {
+        this.payment = payment;
     }
 
     @Override

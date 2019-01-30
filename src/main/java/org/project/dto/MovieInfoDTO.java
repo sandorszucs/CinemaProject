@@ -1,6 +1,5 @@
 package org.project.dto;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class MovieInfoDTO {

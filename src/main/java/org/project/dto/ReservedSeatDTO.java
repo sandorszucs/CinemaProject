@@ -1,13 +1,11 @@
 package org.project.dto;
 
-import org.project.domain.Seat;
-
 import java.util.Objects;
 
 public class ReservedSeatDTO {
 
     private long id;
-    private Seat seat;
+    private SeatDTO seat;
 
     public long getId() {
         return id;
@@ -17,11 +15,11 @@ public class ReservedSeatDTO {
         this.id = id;
     }
 
-    public Seat getSeat() {
+    public SeatDTO getSeat() {
         return seat;
     }
 
-    public void setSeat(Seat seat) {
+    public void setSeat(SeatDTO seat) {
         this.seat = seat;
     }
 

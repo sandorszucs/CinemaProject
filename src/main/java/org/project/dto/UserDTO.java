@@ -1,7 +1,5 @@
 package org.project.dto;
 
-import org.project.domain.Payment;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -13,13 +11,15 @@ public class UserDTO {
     private String password;
     private String telephoneNumber;
     private String address;
-    private List<Payment> payments;
 
-    public List<Payment> getPayments() {
+    private List<PaymentDTO> payments;
+
+
+    public List<PaymentDTO> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payment> payments) {
+    public void setPayments(List<PaymentDTO> payments) {
         this.payments = payments;
     }
 
