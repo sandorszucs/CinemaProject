@@ -10,7 +10,7 @@ public class UserDTO {
     private String lastName;
     private String password;
     private String telephoneNumber;
-    private String address;
+    private String email;
 
     private List<PaymentDTO> payments;
 
@@ -63,14 +63,13 @@ public class UserDTO {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-        }
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Override
     public String toString() {
@@ -80,7 +79,7 @@ public class UserDTO {
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
                 ", payments=" + payments +
                 '}';
     }
@@ -95,13 +94,13 @@ public class UserDTO {
                 Objects.equals(lastName, userDTO.lastName) &&
                 Objects.equals(password, userDTO.password) &&
                 Objects.equals(telephoneNumber, userDTO.telephoneNumber) &&
-                Objects.equals(address, userDTO.address) &&
+                Objects.equals(email, userDTO.email) &&
                 Objects.equals(payments, userDTO.payments);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, password, telephoneNumber, address, payments);
+        return Objects.hash(id, firstName, lastName, password, telephoneNumber, email, payments);
     }
 }
