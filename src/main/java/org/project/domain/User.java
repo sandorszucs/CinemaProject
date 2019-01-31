@@ -30,36 +30,14 @@ public class User {
     @Column(name = "telephoneNumber", nullable = true)
     private String telephoneNumber;
 
-    @Column(name = "address", nullable = true)
-    private String address;
+    @Column(name = "email", nullable = true)
+    private String email;
 
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
     private List<Payment> payments;
-//    public void viewMovies() {
-//    }
-//
-//    public void bookTicket() {
-//    }
-//
-//    public void cancelTicket() {
-//    }
-//
-//    public void makePayment() {
-//    }
-//
-//    public void addMovieRecords() {
-//    }
-//
-//    public void deleteMovieRecords() {
-//    }
-//
-//    public void updateMovieRecords() {
-//    }
-
-    // DO I NEED ALL THESE?
 
     public List<Payment> getPayments() {
         return payments;
@@ -109,11 +87,11 @@ public class User {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
