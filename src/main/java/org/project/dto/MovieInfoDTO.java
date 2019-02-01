@@ -9,15 +9,15 @@ public class MovieInfoDTO {
     private String movieType;
     private String director;
     private String actor;
-    private String venue;
+    private String genre;
 
-    public MovieInfoDTO(long id, String title, String movieType, String director, String actor, String venue) {
+    public MovieInfoDTO(long id, String title, String movieType, String director, String actor, String genre) {
         this.id = id;
         this.title = title;
         this.movieType = movieType;
         this.director = director;
         this.actor = actor;
-        this.venue = venue;
+        this.genre = genre;
     }
 
     public long getId() {
@@ -60,12 +60,12 @@ public class MovieInfoDTO {
         this.actor = actor;
     }
 
-    public String getVenue() {
-        return venue;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setVenue(String venue) {
-        this.venue = venue;
+    public void setGenre(String venue) {
+        this.genre = genre;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class MovieInfoDTO {
                 ", movieType='" + movieType + '\'' +
                 ", director='" + director + '\'' +
                 ", actor='" + actor + '\'' +
-                ", venue='" + venue + '\'' +
+                ", genre='" + genre + '\'' +
                 '}';
     }
 
@@ -90,12 +90,12 @@ public class MovieInfoDTO {
                 Objects.equals(movieType, that.movieType) &&
                 Objects.equals(director, that.director) &&
                 Objects.equals(actor, that.actor) &&
-                Objects.equals(venue, that.venue);
+                Objects.equals(genre, that.genre);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, title, movieType, director, actor, venue);
+        return Objects.hash(id, title, movieType, director, actor, genre);
     }
 }
