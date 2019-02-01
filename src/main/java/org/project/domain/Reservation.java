@@ -29,6 +29,9 @@ public class Reservation {
     private Boolean isPayed;
 
 
+    @OneToOne
+    private User user;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "movieInfo_id")
     private MovieInfo movieInfo;
@@ -38,10 +41,7 @@ public class Reservation {
     private Schedule schedule;
 
 
-
-    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
-    @JoinColumn (name = "seat_id")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -53,6 +53,14 @@ public class Reservation {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.isPayed = isPayed;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public MovieInfo getMovieInfo() {

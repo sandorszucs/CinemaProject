@@ -31,8 +31,7 @@ public class Schedule {
     @Column(name = "movieStartTime")
     private Date movieStartTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "reservedseats_id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "schedule")
     private List<ReservedSeat> reservedSeats = new ArrayList<>();
 
     public Schedule(long id, Hall hall, MovieInfo movieInfo, Date movieStartTime) {

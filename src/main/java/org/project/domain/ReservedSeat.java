@@ -1,27 +1,40 @@
 package org.project.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "reservedSeats")
+@Table(name = "reserved_seats")
 public class ReservedSeat {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(generator = "reservedSeats_generator")
+    @SequenceGenerator(
+            name = "reservedSeats_generator",
+            sequenceName = "reservedSeats_sequence",
+            initialValue = 1
+    )
+    private long id;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "seat_id")
     private Seat seat;
 
+    @OneToOne
+    private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn (name = "reservation_id")
-    private List<Reservation> reservations;
 
-    public List<Reservation> getReservations() {
-        return reservations;
+    @OneToOne
+    private Schedule schedule;
+
+    @OneToOne
+    private Reservation reservation;
+
+    public long getId() {
+        return id;
     }
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Seat getSeat() {
