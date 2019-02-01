@@ -28,18 +28,17 @@ public class MovieInfo {
     @Column(name = "actor")
     private String actor;
 
-    @Column(name = "venue")
-    private String venue;
+    @Column(name = "genre")
+    private String genre;
 
 
-
-    public MovieInfo(long id, String title, String movieType, String director, String actor, String venue) {
+    public MovieInfo(long id, String title, String movieType, String director, String actor, String genre) {
         this.id = id;
         this.title = title;
         this.movieType = movieType;
         this.director = director;
         this.actor = actor;
-        this.venue = venue;
+        this.genre = genre;
     }
 
     public long getId() {
@@ -82,11 +81,11 @@ public class MovieInfo {
         this.actor = cast;
     }
 
-    public String getVenue() {
-        return venue;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setVenue(String venue) {
-        this.venue = venue;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }
