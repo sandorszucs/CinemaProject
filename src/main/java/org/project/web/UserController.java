@@ -30,22 +30,22 @@ public class UserController {
 
 
     @RequestMapping(path = "/user", method = RequestMethod.GET)
-    public UserDTO getUser(@RequestParam("name") String email){
+    public UserDTO getUser(@RequestParam("name") String email) {
         return userService.getUserByEmail(email);
     }
 
-    @RequestMapping(path="/user", method=RequestMethod.POST)
-    public void saveUser(@RequestBody UserDTO userDTO){
+    @RequestMapping(path = "/user", method = RequestMethod.POST)
+    public void saveUser(@RequestBody UserDTO userDTO) {
         userService.saveUser(userDTO);
     }
 
-    @RequestMapping(path="/user/{id}", method=RequestMethod.PUT)
-    public UserDTO updateUser(@PathVariable long id, @RequestBody UserDTO dto){
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.PUT)
+    public UserDTO updateUser(@PathVariable long id, @RequestBody UserDTO dto) {
         return userService.updateUser(id, dto);
     }
 
-    @RequestMapping(path = "/user/{id}", method =RequestMethod.DELETE)
-    public void deleteUser(@PathVariable("id") long id){
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("id") long id) {
         userService.deleteUserById(id);
     }
 
