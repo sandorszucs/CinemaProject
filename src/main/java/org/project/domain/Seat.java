@@ -8,7 +8,7 @@ public class Seat {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue (generator = "seat_generator")
+    @GeneratedValue(generator = "seat_generator")
     @SequenceGenerator(
             name = "seat_generator",
             sequenceName = "seat_sequence",
@@ -26,7 +26,6 @@ public class Seat {
         this.row = row;
         this.seatNumber = seatNumber;
     }
-
 
 
     public long getId() {

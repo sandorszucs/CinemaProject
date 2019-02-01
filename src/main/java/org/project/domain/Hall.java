@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table (name = "halls")
+@Table(name = "halls")
 public class Hall {
 
     @Id
@@ -17,13 +17,13 @@ public class Hall {
     )
     private long id;
 
-    @Column (name = "location")
+    @Column(name = "location")
     private String location;
 
     @Column(name = "capacity")
     private int capacity;
 
-    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "seat_id")
     private List<Seat> seats;
 
