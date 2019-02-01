@@ -40,8 +40,8 @@ public class Reservation {
 
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
-    @JoinColumn (name = "reservedSeat_id")
+//    @JoinTable(name = "RESERVATION_SEAT_TABLE") // am creat bine tabelul de legatura?
+    @JoinColumn (name = "seat_id")
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)

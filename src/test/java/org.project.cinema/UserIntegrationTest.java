@@ -2,15 +2,13 @@ package org.project.cinema;
 
 import org.project.CinemaApplication;
 import org.project.domain.User;
+import org.project.dto.UserDTO;
 import org.project.service.UserService;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,16 +19,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         initializers = ConfigFileApplicationContextInitializer.class)
 
 public class UserIntegrationTest {
-    @Autowired
 
+    @Autowired
     private UserService userService;
 
     @Test
     public void testSave() {
 
-        User user = new User();
+        UserDTO user = new UserDTO();
         user.setFirstName("Szucs");
         user.setLastName("Sandor");
+        user.setPassword("primaparola");
+        user.setTelephoneNumber("0740611695");
+        user.setEmail("szucs_sandor_lma@yahoo.com");
         userService.saveUser(user);
         }
 }

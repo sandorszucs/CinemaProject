@@ -1,31 +1,27 @@
 package org.project.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "reservedSeats")
 public class ReservedSeat {
 
-    @Id
-    @Column(name = "Id")
-    @GeneratedValue(generator = "reservedSeats_generator")
-    @SequenceGenerator(
-            name = "reservedSeats_generator",
-            sequenceName = "reservedSeats_sequence",
-            initialValue = 1
-    )
-    private long id;
-
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
-    public long getId() {
-        return id;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn (name = "reservation_id")
+    private List<Reservation> reservations;
+
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public Seat getSeat() {
