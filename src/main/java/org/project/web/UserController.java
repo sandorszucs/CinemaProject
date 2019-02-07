@@ -22,11 +22,10 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
-//    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
-//    public UserDTO getUser(@PathVariable("id") long id){
-//
-//        return userService.getUserById(id);
-//    }
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
+    public UserDTO getUser(@PathVariable("id") long id){
+        return userService.getUserById(id);
+    }
 
 
     @RequestMapping(path = "/user", method = RequestMethod.GET)

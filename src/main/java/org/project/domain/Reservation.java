@@ -20,7 +20,7 @@ public class Reservation {
     private long id;
 
     @Column(name = "ticketAvailableNr")
-    private int ticketAvailableNr;
+    private int ticketAvailableNr = 50;
 
     @Column(name = "createdDateTime")
     private Date dateTime;
@@ -48,11 +48,21 @@ public class Reservation {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    public Reservation(long id, int ticketAvailableNr, Date dateTime, Boolean isPayed) {
-        this.id = id;
+
+    public Reservation(int ticketAvailableNr, Date dateTime, Boolean isPayed, User user,
+                       MovieInfo movieInfo, Schedule schedule, List<ReservedSeat> reservedSeat,
+                       Payment payment) {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.isPayed = isPayed;
+        this.user = user;
+        this.movieInfo = movieInfo;
+        this.schedule = schedule;
+        this.reservedSeat = reservedSeat;
+        this.payment = payment;
+    }
+
+    public Reservation() {
     }
 
     public User getUser() {

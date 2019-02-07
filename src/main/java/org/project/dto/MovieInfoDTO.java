@@ -64,7 +64,7 @@ public class MovieInfoDTO {
         return genre;
     }
 
-    public void setGenre(String venue) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 

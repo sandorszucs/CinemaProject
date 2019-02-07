@@ -1,7 +1,6 @@
 package org.project.cinema;
 
 import org.project.CinemaApplication;
-import org.project.domain.User;
 import org.project.dto.UserDTO;
 import org.project.service.UserService;
 import org.junit.Test;
