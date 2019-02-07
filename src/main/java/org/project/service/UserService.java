@@ -100,6 +100,7 @@ public class UserService {
 
     private User convert(UserDTO userDTO) {
         User user = new User();
+        user.setId(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setPassword(userDTO.getPassword());
