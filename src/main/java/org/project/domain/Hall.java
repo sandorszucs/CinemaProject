@@ -33,6 +33,10 @@ public class Hall {
         this.capacity = capacity;
     }
 
+    public Hall(){
+
+    }
+
 
     public String getLocation() {
         return location;
