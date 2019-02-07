@@ -41,6 +41,10 @@ public class Schedule {
         this.movieStartTime = movieStartTime;
     }
 
+    public Schedule() {
+
+    }
+
     public List<ReservedSeat> getReservedSeats() {
         return reservedSeats;
     }

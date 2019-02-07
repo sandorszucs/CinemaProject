@@ -41,6 +41,9 @@ public class MovieInfo {
         this.genre = genre;
     }
 
+    public MovieInfo() {
+    }
+
     public long getId() {
         return id;
     }

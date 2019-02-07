@@ -26,6 +26,10 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
+    public Payment() {
+
+    }
+
 
     public double getAmount() {
         return amount;
