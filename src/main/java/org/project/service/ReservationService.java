@@ -6,6 +6,10 @@ import org.project.persistence.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class ReservationService {
 
@@ -33,7 +37,7 @@ public class ReservationService {
 
         ReservationDTO reservationDTO = new ReservationDTO();
         ScheduleDTO scheduleDTO = new ScheduleDTO();
-        ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
+        List<ReservedSeatDTO> reservedSeatDTO = new ArrayList<>();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
         PaymentDTO paymentDTO = new PaymentDTO();
 
@@ -42,8 +46,9 @@ public class ReservationService {
         reservationDTO.setDateTime(reservation.getDateTime());
         reservationDTO.setPayed(reservation.getPayed());
 
+
         reservationDTO.setSchedule(scheduleDTO);
-        reservationDTO.setReservedSeat(reservedSeatDTO); // itt mit kell csinalni?
+        reservationDTO.setReservedSeat(reservedSeatDTO);
         reservationDTO.setMovieInfo(movieInfoDTO);
         reservationDTO.setPayment(paymentDTO);
         return reservationDTO;
@@ -53,7 +58,7 @@ public class ReservationService {
 
         Reservation reservation = new Reservation();
         Schedule schedule = new Schedule();
-        ReservedSeat reservedSeat = new ReservedSeat();
+        List<ReservedSeat> reservedSeat = new ArrayList<>() ;
         MovieInfo movieInfo = new MovieInfo();
         Payment payment = new Payment();
 
@@ -82,10 +87,10 @@ public class ReservationService {
     public ReservationDTO updateReservation(long id, ReservationDTO dto) {
         Reservation reservation = reservationRepository.findOne(id);
 
-        Schedule schedule = new Schedule(); // errol beszelek
-        ReservedSeat reservedSeat = new ReservedSeat(); // errol beszelek
-        MovieInfo movieInfo = new MovieInfo(); // errol beszelek
-        Payment payment = new Payment(); // errol beszelek
+        Schedule schedule = new Schedule();
+        List<ReservedSeat> reservedSeat = new ArrayList<>();
+        MovieInfo movieInfo = new MovieInfo();
+        Payment payment = new Payment();
 
         reservation.setId(dto.getId());
         reservation.setTicketAvailableNr(dto.getTicketAvailableNr());

@@ -12,6 +12,9 @@ import org.project.persistence.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ScheduleService {
 
@@ -40,29 +43,29 @@ public class ScheduleService {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         HallDTO hallDTO = new HallDTO();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
-        ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
+        List<ReservedSeatDTO> reservedSeatDTO = new ArrayList<>();
 
 
         scheduleDTO.setId(schedule.getId());
         scheduleDTO.setMovieStartTime(schedule.getMovieStartTime());
         scheduleDTO.setHall(hallDTO);
         scheduleDTO.setMovieInfo(movieInfoDTO);
-        scheduleDTO.setReservedSeats(reservedSeatDTO); // nem mukodik! hogyan implementaljam??????????????????????????????
+        scheduleDTO.setReservedSeats(reservedSeatDTO);
         return scheduleDTO;
     }
 
     private Schedule convert (ScheduleDTO scheduleDTO) {
 
         Schedule schedule = new Schedule();
-        Hall hall = new Hall(); // itt mi a baja?????????
+        Hall hall = new Hall();
         MovieInfo movieInfo = new MovieInfo();
-        ReservedSeat reservedSeat = new ReservedSeat();
+        List<ReservedSeat> reservedSeat = new ArrayList<>();
 
         schedule.setId(scheduleDTO.getId());
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
         schedule.setHall(hall);
         schedule.setMovieInfo(movieInfo);
-        schedule.setReservedSeats(reservedSeat); ///////////// ugyan az ami a tobbinel
+        schedule.setReservedSeats(reservedSeat);
 
         return schedule;
     }
@@ -80,7 +83,7 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findOne(id);
         Hall hall = new Hall();
         MovieInfo movieInfo = new MovieInfo();
-        ReservedSeat reservedSeat = new ReservedSeat();
+        List<ReservedSeat> reservedSeat = new ArrayList<>();
 
 
         schedule.setId(dto.getId());
@@ -89,7 +92,7 @@ public class ScheduleService {
         schedule.setMovieInfo(movieInfo);
         schedule.setReservedSeats(reservedSeat);
 
-        Schedule savedSchedule = scheduleRepository.save(schedule)
+        Schedule savedSchedule = scheduleRepository.save(schedule);
         return convertToDto(savedSchedule);
     }
 
