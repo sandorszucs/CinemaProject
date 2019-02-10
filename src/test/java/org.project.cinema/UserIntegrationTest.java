@@ -1,6 +1,7 @@
 package org.project.cinema;
 
 import org.project.CinemaApplication;
+import org.project.domain.User;
 import org.project.dto.UserDTO;
 import org.project.service.UserService;
 import org.junit.Test;
@@ -24,13 +25,20 @@ public class UserIntegrationTest {
 
     @Test
     public void testSave() {
+        //save
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("mane");
+        userDTO.setLastName("mane");
+        userDTO.setPassword("mane");
+        userDTO.setTelephoneNumber("mane");
+        userDTO.setEmail("mane@mane.com");
+        User savedUser = userService.saveUser(userDTO);
+        //update
+        savedUser.setLastName("Bela");
+        savedUser.setFirstName("Andras");
+        userService.updateUser(userService.convertToDto(savedUser));
 
-        UserDTO user = new UserDTO();
-        user.setFirstName("Szucs");
-        user.setLastName("Sandor");
-        user.setPassword("primaparola");
-        user.setTelephoneNumber("0740611695");
-        user.setEmail("szucs_sandor_lma@yahoo.com");
-        userService.saveUser(user);
-        }
+        //delete
+        userService.deleteUserById(savedUser.getId());
+    }
 }

@@ -39,8 +39,8 @@ public class UserController {
     }
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.PUT)
-    public UserDTO updateUser(@PathVariable long id, @RequestBody UserDTO dto) {
-        return userService.updateUser(id, dto);
+    public UserDTO updateUser(@RequestBody UserDTO dto) {
+        return userService.updateUser(dto);
     }
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.DELETE)

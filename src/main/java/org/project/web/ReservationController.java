@@ -26,7 +26,7 @@ public class ReservationController {
 
     @RequestMapping(path = "/reservation/{id}", method = RequestMethod.PUT)
     public ReservationDTO updateReservation(@PathVariable long id, @RequestBody ReservationDTO dto) {
-        return reservationService.updateReservation(id, dto);
+        return reservationService.updateReservation(dto);
     }
 
     @RequestMapping(path = "/reservation/{id}", method = RequestMethod.DELETE)

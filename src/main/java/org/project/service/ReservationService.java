@@ -16,41 +16,38 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public void saveReservation(ReservationDTO reservationDTO) {
+    public Reservation saveReservation(ReservationDTO reservationDTO) {
         Long reservationId = reservationDTO.getId();
-        if (reservationId == null) {
-            throw new IllegalArgumentException("Reservation id cannot be null");
-        }
+        Reservation reservationObject = convert(reservationDTO);
+
         try {
-            getReservationById(reservationId);
-        } catch (Exception e) {
-            Reservation reservationObject = convert(reservationDTO);
-            try {
-                reservationRepository.save(reservationObject);
-            } catch (Exception e2) {
-                System.out.println("Your reservation could NOT be saved! Please, try again! " + e2);
-            }
+            return reservationRepository.save(reservationObject);
+        } catch (Exception e2) {
+            System.out.println("Your reservation could NOT be saved! Please, try again! " + e2);
+            return new Reservation();
         }
     }
 
     private ReservationDTO convertToDto(Reservation reservation) {
 
         ReservationDTO reservationDTO = new ReservationDTO();
+
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         List<ReservedSeatDTO> reservedSeatDTO = new ArrayList<>();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
         PaymentDTO paymentDTO = new PaymentDTO();
+
 
         reservationDTO.setId(reservation.getId());
         reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
         reservationDTO.setDateTime(reservation.getDateTime());
         reservationDTO.setPayed(reservation.getPayed());
 
-
         reservationDTO.setSchedule(scheduleDTO);
         reservationDTO.setReservedSeat(reservedSeatDTO);
         reservationDTO.setMovieInfo(movieInfoDTO);
         reservationDTO.setPayment(paymentDTO);
+
         return reservationDTO;
     }
 
@@ -84,8 +81,9 @@ public class ReservationService {
         return convertToDto(reserved);
     }
 
-    public ReservationDTO updateReservation(long id, ReservationDTO dto) {
-        Reservation reservation = reservationRepository.findOne(id);
+    public ReservationDTO updateReservation(ReservationDTO dto) {
+        Reservation reservation = reservationRepository.findOne(dto.getId());
+
 
         Schedule schedule = new Schedule();
         List<ReservedSeat> reservedSeat = new ArrayList<>();
@@ -96,6 +94,7 @@ public class ReservationService {
         reservation.setTicketAvailableNr(dto.getTicketAvailableNr());
         reservation.setDateTime(dto.getDateTime());
         reservation.setPayed(dto.getPayed());
+
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
         reservation.setMovieInfo(movieInfo);

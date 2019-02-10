@@ -21,22 +21,9 @@ public class ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
-    public void saveSchedule (ScheduleDTO scheduleDTO) {
-        Long scheduleID = scheduleDTO.getId();
-        if (scheduleID == null) {
-            throw new IllegalArgumentException("Schedule ID cannot be null");
-        }
-
-        try {
-            getScheduleById(scheduleID);
-        } catch (Exception e) {
-            Schedule scheduleObject = convert(scheduleDTO);
-            try {
-                scheduleRepository.save(scheduleObject);
-            } catch (Exception scheduleError) {
-                System.out.println("Your schedule could NOT be saved! Please, try again" + scheduleError);
-            }
-        }
+    public Schedule saveSchedule (ScheduleDTO scheduleDTO) {
+        Schedule scheduleObject = convert(scheduleDTO);
+        return scheduleRepository.save(scheduleObject);
     }
 
 

@@ -18,7 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveUser(UserDTO userDTO) {
+    public User saveUser(UserDTO userDTO) {
         String firstName = userDTO.getFirstName();
         String lastName = userDTO.getLastName();
         String email = userDTO.getEmail();
@@ -33,42 +33,8 @@ public class UserService {
             throw new IllegalArgumentException("You have to give your email address");
         }
 
-        boolean mailTaken = false;
-
-        try {
-            getUserByEmail(email);
-        } catch (Exception e) {
-            User userObject = convert(userDTO);
-            try {
-                userRepository.save(userObject);
-            } catch (Exception e2) {
-                System.out.println("Your user could NOT be saved! Please, try again! " + e2);
-            }
-            mailTaken = true;
-            if (mailTaken == false) {
-                throw new IllegalArgumentException("This E-mail is already taken.");
-            }
-        }
-        try {
-            getUserByFirstName(firstName);
-        } catch (Exception e) {
-            User userFirstName = convert(userDTO);
-            try {
-                userRepository.save(userFirstName);
-            } catch (Exception firstNameError) {
-                System.out.println("No such First Name was found in the system");
-            }
-        }
-        try {
-            getUserByLastName(lastName);
-        } catch (Exception e) {
-            User userLastName = convert(userDTO);
-            try {
-                userRepository.save(userLastName);
-            } catch (Exception lastNameError) {
-                System.out.println("No such Last Name was found in the system");
-            }
-        }
+        User userObject = convert(userDTO);
+        return userRepository.save(userObject);
     }
 
 
@@ -87,7 +53,7 @@ public class UserService {
         return convertToDto(user);
     }
 
-    private UserDTO convertToDto(User user) {
+    public UserDTO convertToDto(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setFirstName(user.getFirstName());
@@ -98,7 +64,7 @@ public class UserService {
         return userDTO;
     }
 
-    private User convert(UserDTO userDTO) {
+    public User convert(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
@@ -117,17 +83,17 @@ public class UserService {
         return convertToDto(user);
     }
 
-    public UserDTO updateUser(long id, UserDTO dto) {
-
-        User user = userRepository.findOne(id);
+    public UserDTO updateUser(UserDTO dto) {
+        User user = userRepository.findOne(dto.getId());
+        user.setId(dto.getId());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setPassword(dto.getPassword());
         user.setTelephoneNumber(dto.getTelephoneNumber());
         user.setEmail(dto.getEmail());
-        User savedObject = userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
-        return convertToDto(savedObject);
+        return convertToDto(savedUser);
     }
 
     public boolean deleteUserById(long id) {
