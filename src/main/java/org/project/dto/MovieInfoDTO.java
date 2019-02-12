@@ -6,15 +6,15 @@ public class MovieInfoDTO {
 
     private long id;
     private String title;
-    private String movieType;
+    private int production;
     private String director;
     private String actor;
     private String genre;
 
-    public MovieInfoDTO(long id, String title, String movieType, String director, String actor, String genre) {
+    public MovieInfoDTO(long id, String title, int production, String director, String actor, String genre) {
         this.id = id;
         this.title = title;
-        this.movieType = movieType;
+        this.production = production;
         this.director = director;
         this.actor = actor;
         this.genre = genre;
@@ -39,12 +39,12 @@ public class MovieInfoDTO {
         this.title = title;
     }
 
-    public String getMovieType() {
-        return movieType;
+    public int getProduction() {
+        return production;
     }
 
-    public void setMovieType(String movieType) {
-        this.movieType = movieType;
+    public void setProduction(int production) {
+        this.production = production;
     }
 
     public String getDirector() {
@@ -76,7 +76,7 @@ public class MovieInfoDTO {
         return "MovieInfoDTO{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", movieType='" + movieType + '\'' +
+                ", production=" + production +
                 ", director='" + director + '\'' +
                 ", actor='" + actor + '\'' +
                 ", genre='" + genre + '\'' +
@@ -89,8 +89,8 @@ public class MovieInfoDTO {
         if (o == null || getClass() != o.getClass()) return false;
         MovieInfoDTO that = (MovieInfoDTO) o;
         return id == that.id &&
+                production == that.production &&
                 Objects.equals(title, that.title) &&
-                Objects.equals(movieType, that.movieType) &&
                 Objects.equals(director, that.director) &&
                 Objects.equals(actor, that.actor) &&
                 Objects.equals(genre, that.genre);
@@ -99,6 +99,6 @@ public class MovieInfoDTO {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, title, movieType, director, actor, genre);
+        return Objects.hash(id, title, production, director, actor, genre);
     }
 }

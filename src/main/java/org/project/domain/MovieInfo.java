@@ -19,8 +19,8 @@ public class MovieInfo {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "movieType")
-    private String movieType;
+    @Column(name = "production")
+    private int production;
 
     @Column(name = "director")
     private String director;
@@ -32,10 +32,10 @@ public class MovieInfo {
     private String genre;
 
 
-    public MovieInfo(long id, String title, String movieType, String director, String actor, String genre) {
+    public MovieInfo(long id, String title, int production, String director, String actor, String genre) {
         this.id = id;
         this.title = title;
-        this.movieType = movieType;
+        this.production = production;
         this.director = director;
         this.actor = actor;
         this.genre = genre;
@@ -60,12 +60,12 @@ public class MovieInfo {
         this.title = title;
     }
 
-    public String getMovieType() {
-        return movieType;
+    public int getProduction() {
+        return production;
     }
 
-    public void setMovieType(String movieType) {
-        this.movieType = movieType;
+    public void setProduction(int production) {
+        this.production = production;
     }
 
     public String getDirector() {
@@ -76,12 +76,12 @@ public class MovieInfo {
         this.director = director;
     }
 
-    public String getCast() {
+    public String getActor() {
         return actor;
     }
 
-    public void setCast(String cast) {
-        this.actor = cast;
+    public void setActor(String actor) {
+        this.actor = actor;
     }
 
     public String getGenre() {
