@@ -22,6 +22,8 @@ public class UserService {
         String firstName = userDTO.getFirstName();
         String lastName = userDTO.getLastName();
         String email = userDTO.getEmail();
+        String password = userDTO.getPassword();
+        String telephoneNumber = userDTO.getTelephoneNumber();
 
         if (firstName == null) {
             throw new IllegalArgumentException("First name cannot be null.");
@@ -31,6 +33,12 @@ public class UserService {
         }
         if (email == null) {
             throw new IllegalArgumentException("You have to give your email address");
+        }
+        if (password == null) {
+            throw new IllegalArgumentException("Entering a password is mandatory!");
+        }
+        if (telephoneNumber == null) {
+            throw new IllegalArgumentException("Please provide your telephone number!");
         }
 
         User userObject = convert(userDTO);
