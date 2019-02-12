@@ -5,8 +5,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Date;
 
-public interface ReservationRepository extends
-        PagingAndSortingRepository<Reservation, Long> {
+public interface ReservationRepository extends PagingAndSortingRepository<Reservation, Long> {
 
     Reservation findReservationById(long id);
 }
