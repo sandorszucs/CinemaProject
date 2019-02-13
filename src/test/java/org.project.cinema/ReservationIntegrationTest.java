@@ -95,6 +95,5 @@ public class ReservationIntegrationTest {
         reservationDTO.setDateTime(movieDate);
         reservationDTO.setUser(user);
         reservationService.saveReservation(reservationDTO);
-
     }
 }
