@@ -17,6 +17,7 @@ public class ReservationDTO {
     private ScheduleDTO schedule;
     private List<ReservedSeatDTO> reservedSeat;
     private PaymentDTO payment;
+    private UserDTO user;
 
     public long getId() {
         return id;
@@ -74,11 +75,11 @@ public class ReservationDTO {
         this.schedule = schedule;
     }
 
-    public List<ReservedSeatDTO> getReservedSeat() {
+    public List<ReservedSeatDTO> getReservedSeats() {
         return reservedSeat;
     }
 
-    public void setReservedSeat(List<ReservedSeatDTO> reservedSeat) {
+    public void setReservedSeats(List<ReservedSeatDTO> reservedSeat) {
         this.reservedSeat = reservedSeat;
     }
 
@@ -89,6 +90,15 @@ public class ReservationDTO {
     public void setPayment(PaymentDTO payment) {
         this.payment = payment;
     }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
 
     @Override
     public String toString() {
@@ -102,6 +112,7 @@ public class ReservationDTO {
                 ", schedule=" + schedule +
                 ", reservedSeat=" + reservedSeat +
                 ", payment=" + payment +
+                ", user=" + user +
                 '}';
     }
 
@@ -118,13 +129,14 @@ public class ReservationDTO {
                 Objects.equals(movieInfo, that.movieInfo) &&
                 Objects.equals(schedule, that.schedule) &&
                 Objects.equals(reservedSeat, that.reservedSeat) &&
-                Objects.equals(payment, that.payment);
+                Objects.equals(payment, that.payment) &&
+                Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, ticketAvailableNr, dateTime, isPayed, hall, movieInfo, schedule, reservedSeat, payment);
+        return Objects.hash(id, ticketAvailableNr, dateTime, isPayed, hall, movieInfo, schedule, reservedSeat, payment, user);
     }
 }
 
