@@ -27,18 +27,18 @@ public class UserIntegrationTest {
     public void testSave() {
         //save
         UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName("mane");
-        userDTO.setLastName("mane");
-        userDTO.setPassword("mane");
-        userDTO.setTelephoneNumber("mane");
-        userDTO.setEmail("mane@mane.com");
+        userDTO.setFirstName("Smith");
+        userDTO.setLastName("George");
+        userDTO.setPassword("firstpass");
+        userDTO.setTelephoneNumber("0740611695");
+        userDTO.setEmail("smith_george@gmail.com");
         User savedUser = userService.saveUser(userDTO);
         //update
-        savedUser.setLastName("Bela");
-        savedUser.setFirstName("Andras");
-        userService.updateUser(userService.convertToDto(savedUser));
-
-        //delete
-        userService.deleteUserById(savedUser.getId());
+//        savedUser.setLastName("Bela");
+//        savedUser.setFirstName("Andras");
+//        userService.updateUser(userService.convertToDto(savedUser));
+//
+//        //delete
+//        userService.deleteUserById(savedUser.getId());
     }
 }
