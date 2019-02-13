@@ -1,4 +1,5 @@
 package org.project;
+import org.project.helper.ConverterHelper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,5 +22,10 @@ public class CinemaApplication {
                 registry.addMapping("/**");
             }
         };
+    }
+
+    @Bean
+    public ConverterHelper converterHelper() {
+        return new ConverterHelper();
     }
 }
