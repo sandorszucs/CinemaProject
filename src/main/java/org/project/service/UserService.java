@@ -2,6 +2,7 @@ package org.project.service;
 
 import org.project.domain.User;
 import org.project.dto.UserDTO;
+import org.project.helper.ConverterHelper;
 import org.project.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,13 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ConverterHelper converterHelper;
+
+    public void setConverterHelper(ConverterHelper converterHelper) {
+        this.converterHelper = converterHelper;
+    }
 
     public User saveUser(UserDTO userDTO) {
         String firstName = userDTO.getFirstName();
@@ -41,7 +49,7 @@ public class UserService {
             throw new IllegalArgumentException("Please provide your telephone number!");
         }
 
-        User userObject = convert(userDTO);
+        User userObject = converterHelper.convertUser(userDTO);
         return userRepository.save(userObject);
     }
 
@@ -72,16 +80,6 @@ public class UserService {
         return userDTO;
     }
 
-    public User convert(UserDTO userDTO) {
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setPassword(userDTO.getPassword());
-        user.setTelephoneNumber(userDTO.getTelephoneNumber());
-        user.setEmail(userDTO.getEmail());
-        return user;
-    }
 
     public UserDTO getUserById(long id) {
         User user = userRepository.findOne(id);

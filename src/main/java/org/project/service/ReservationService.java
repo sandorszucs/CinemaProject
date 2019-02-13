@@ -2,8 +2,10 @@ package org.project.service;
 
 import org.project.domain.*;
 import org.project.dto.*;
-import org.project.persistence.ReservationRepository;
+import org.project.helper.ConverterHelper;
+import org.project.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,14 @@ public class ReservationService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+
+    @Autowired
+    private ConverterHelper converterHelper;
+
+
+    public void setConverterHelper(ConverterHelper converterHelper) {
+        this.converterHelper = converterHelper;
+    }
 
     public Reservation saveReservation(ReservationDTO reservationDTO) {
         Long reservationId = reservationDTO.getId();
@@ -33,7 +43,7 @@ public class ReservationService {
         ReservationDTO reservationDTO = new ReservationDTO();
 
         ScheduleDTO scheduleDTO = new ScheduleDTO();
-        List<ReservedSeatDTO> reservedSeatDTO = new ArrayList<>();
+        List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
         PaymentDTO paymentDTO = new PaymentDTO();
 
@@ -44,7 +54,7 @@ public class ReservationService {
         reservationDTO.setPayed(reservation.getPayed());
 
         reservationDTO.setSchedule(scheduleDTO);
-        reservationDTO.setReservedSeat(reservedSeatDTO);
+        reservationDTO.setReservedSeats(reservedSeatDTO);
         reservationDTO.setMovieInfo(movieInfoDTO);
         reservationDTO.setPayment(paymentDTO);
 
@@ -52,22 +62,28 @@ public class ReservationService {
     }
 
     private Reservation convert(ReservationDTO reservationDTO) {
-
         Reservation reservation = new Reservation();
         Schedule schedule = new Schedule();
-        List<ReservedSeat> reservedSeat = new ArrayList<>() ;
-        MovieInfo movieInfo = new MovieInfo();
-        Payment payment = new Payment();
+        Hall hall = converterHelper.convertHall(reservationDTO.getHall(), reservationDTO.getId());
+        MovieInfo movieInfo = converterHelper.convertMovieInfo(reservationDTO.getMovieInfo(), reservationDTO.getId());
+        User user = converterHelper.convertUser(reservationDTO.getUser());
+        List<ReservedSeat> reservedSeat = converterHelper.convertReservedSeats(reservationDTO.getReservedSeats()); // kell egy s betu
+        Payment payment = converterHelper.convertPayment(reservationDTO.getPayment());
+
+        schedule.setHall(hall);
 
         reservation.setId(reservationDTO.getId());
         reservation.setTicketAvailableNr(reservationDTO.getTicketAvailableNr());
         reservation.setDateTime(reservationDTO.getDateTime());
         reservation.setPayed(reservationDTO.getPayed());
 
+        reservation.setUser(user);
+
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
         reservation.setMovieInfo(movieInfo);
         reservation.setPayment(payment);
+
 
         return reservation;
     }

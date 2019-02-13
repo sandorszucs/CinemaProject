@@ -2,6 +2,7 @@ package org.project.service;
 
 import org.project.domain.*;
 import org.project.dto.*;
+import org.project.helper.ConverterHelper;
 import org.project.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +18,7 @@ public class ScheduleService {
     private ScheduleRepository scheduleRepository;
 
     @Autowired
-    private HallRepository hallRepository;
-
-    @Autowired
-    private MovieInfoRepository movieInfoRepository;
-
-    @Autowired
-    private SeatRepository seatRepository;
-
-    @Autowired
-    private ReservedSeatRepository reservedSeatRepository;
+    private ConverterHelper converterHelper;
 
     public Schedule saveSchedule(ScheduleDTO scheduleDTO) {
         Schedule scheduleObject = convert(scheduleDTO);
@@ -51,10 +43,10 @@ public class ScheduleService {
 
     private Schedule convert(ScheduleDTO scheduleDTO) {
         Schedule schedule = new Schedule();
-        Hall hall = convertHall(scheduleDTO,scheduleDTO.getId());
-        MovieInfo movieInfo = convertMovieInfo(scheduleDTO,scheduleDTO.getId());
+        Hall hall = converterHelper.convertHall(scheduleDTO.getHall(),scheduleDTO.getId());
+        MovieInfo movieInfo = converterHelper.convertMovieInfo(scheduleDTO.getMovieInfo(),scheduleDTO.getId());
 
-        List<ReservedSeat> reservedSeat = convertReservedSeats(scheduleDTO.getReservedSeats());
+        List<ReservedSeat> reservedSeat = converterHelper.convertReservedSeats(scheduleDTO.getReservedSeats());
 
         schedule.setId(scheduleDTO.getId());
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
@@ -66,66 +58,6 @@ public class ScheduleService {
         return schedule;
     }
 
-    private List<ReservedSeat> convertReservedSeats(List<ReservedSeatDTO> reservedSeatDTOs){
-        List<ReservedSeat> reservedSeats = new ArrayList<>();
-        for(ReservedSeatDTO seatDTO : reservedSeatDTOs){
-            ReservedSeat reservedSeat = reservedSeatRepository.findReservedSeatById(seatDTO.getId());
-             if(reservedSeat == null){
-                 reservedSeat = new ReservedSeat();
-             }
-            reservedSeat.setId(seatDTO.getId());
-            List<Seat> seat = convertSeat(Arrays.asList(seatDTO.getSeat()));
-            reservedSeat.setSeat(seat.get(0));
-
-            reservedSeats.add(reservedSeat);
-        }
-        return reservedSeats;
-    }
-
-    private Hall convertHall(ScheduleDTO scheduleDTO, long id) {
-        Hall hall = hallRepository.findHallById(id);
-        if (hall == null){
-            hall = new Hall();// if hall doesn't exist in the data base, ex: findById returns null, then create new hall Object
-        }
-        hall.setCapacity(scheduleDTO.getHall().getCapacity());
-        hall.setId(scheduleDTO.getHall().getId());
-        hall.setLocation(scheduleDTO.getHall().getLocation());
-        List<Seat> seats = convertSeat(scheduleDTO.getHall().getSeats());
-        hall.setSeats(seats);
-        return hall;
-    }
-
-    private List<Seat> convertSeat(List<SeatDTO> seatDTOs){// example 5 seatDTO
-        List<Seat> seats = new ArrayList<>();
-        for(SeatDTO seatDTO : seatDTOs){//for every seatDTO in the list of 5
-            Seat seat = seatRepository.findSeatById(seatDTO.getId());
-            if(seat == null){
-                seat = new Seat();
-            }
-
-            seat.setId(seatDTO.getId());
-            seat.setRow(seatDTO.getRow());
-            seat.setSeatNumber(seatDTO.getSeatNumber());
-            seats.add(seat);
-        }
-        return seats; //returns list of seats which were converted from seatDTO
-    }
-
-
-    private MovieInfo convertMovieInfo(ScheduleDTO scheduleDTO, long id){
-        MovieInfo movieInfo = movieInfoRepository.findMovieInfoById(id);
-          if(movieInfo == null){
-              movieInfo = new MovieInfo();
-          }
-        movieInfo.setActor(scheduleDTO.getMovieInfo().getActor());
-        movieInfo.setDirector(scheduleDTO.getMovieInfo().getDirector());
-        movieInfo.setGenre(scheduleDTO.getMovieInfo().getGenre());
-        movieInfo.setId(scheduleDTO.getMovieInfo().getId());
-        movieInfo.setProduction(scheduleDTO.getMovieInfo().getProduction());
-        movieInfo.setTitle(scheduleDTO.getMovieInfo().getTitle());
-
-        return movieInfo;
-    }
 
     public ScheduleDTO getScheduleById(long id) {
         Schedule schedule = scheduleRepository.findScheduleById(id);
@@ -161,5 +93,16 @@ public class ScheduleService {
         return false;
     }
 
-     //populate movie info method
+    public void setConverterHelper(ConverterHelper converterHelper) {
+        this.converterHelper = converterHelper;
+    }
 }
+
+     /*populate movie info method
+    following methods needs to be implemented:
+
+    - GetAllAvailableSeats
+    - CanISellMoreTickets?
+    - GetAllScheduledMovieFromNextWeek
+    */
+
