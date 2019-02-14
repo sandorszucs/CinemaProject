@@ -39,7 +39,7 @@ public class ReservationIntegrationTest {
         seat2.setSeatNumber(6);
 
         UserDTO user = new UserDTO();
-        user.setId(1L);
+        user.setId(11);
         user.setFirstName("George");
         user.setLastName("Smith");
         user.setPassword("firstpass");
