@@ -45,7 +45,7 @@ public class Reservation {
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id")
+    @JoinColumn(name = "transactionid")
     private Payment payment;
 
 

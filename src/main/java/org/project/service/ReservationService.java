@@ -5,11 +5,8 @@ import org.project.dto.*;
 import org.project.helper.ConverterHelper;
 import org.project.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service

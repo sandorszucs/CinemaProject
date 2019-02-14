@@ -26,6 +26,7 @@ public class UserService {
         this.converterHelper = converterHelper;
     }
 
+
     public User saveUser(UserDTO userDTO) {
         String firstName = userDTO.getFirstName();
         String lastName = userDTO.getLastName();
@@ -53,19 +54,8 @@ public class UserService {
         return userRepository.save(userObject);
     }
 
-
     public UserDTO getUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
-        return convertToDto(user);
-    }
-
-    public UserDTO getUserByFirstName(String firstName) {
-        User user = userRepository.findByFirstName(firstName);
-        return convertToDto(user);
-    }
-
-    public UserDTO getUserByLastName(String lastName) {
-        User user = userRepository.findByLastName(lastName);
         return convertToDto(user);
     }
 
