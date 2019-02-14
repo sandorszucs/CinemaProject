@@ -60,7 +60,8 @@ public class ReservationService {
 
     private Reservation convert(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
-        Schedule schedule = new Schedule();
+//        Schedule schedule = new Schedule();
+        Schedule schedule = converterHelper.convertSchedule(reservationDTO.getSchedule());
         Hall hall = converterHelper.convertHall(reservationDTO.getHall(), reservationDTO.getId());
         MovieInfo movieInfo = converterHelper.convertMovieInfo(reservationDTO.getMovieInfo(), reservationDTO.getId());
         User user = converterHelper.convertUser(reservationDTO.getUser());

@@ -23,6 +23,8 @@ public class ConverterHelper {
     @Autowired
     private ReservedSeatRepository reservedSeatRepository;
 
+    @Autowired ScheduleRepository scheduleRepository;
+
 
     public List<ReservedSeat> convertReservedSeats(List<ReservedSeatDTO> reservedSeatDTOs){
         List<ReservedSeat> reservedSeats = new ArrayList<>();
@@ -105,5 +107,12 @@ public class ConverterHelper {
         return payment;
     }
 
+    public Schedule convertSchedule(ScheduleDTO scheduleDTO) {
+        Schedule schedule = new Schedule();
+        schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
+        schedule.setId(scheduleDTO.getId());
+        schedule.setMovieInfo(schedule.getMovieInfo());
+        return schedule;
+    }
 
 }
