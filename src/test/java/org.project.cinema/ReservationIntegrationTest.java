@@ -73,11 +73,7 @@ public class ReservationIntegrationTest {
         scheduleDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
 
 
-        PaymentDTO payment = new PaymentDTO();
-        payment.setAmount(12);
-
         ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setPayment(payment);
         reservationDTO.setMovieInfo(movieInfo);
         reservationDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
         reservationDTO.setSchedule(scheduleDTO);

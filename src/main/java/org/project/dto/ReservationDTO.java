@@ -15,7 +15,6 @@ public class ReservationDTO {
     private MovieInfoDTO movieInfo;
     private ScheduleDTO schedule;
     private List<ReservedSeatDTO> reservedSeat;
-    private PaymentDTO payment;
     private UserDTO user;
 
     public long getId() {
@@ -74,14 +73,6 @@ public class ReservationDTO {
         this.reservedSeat = reservedSeat;
     }
 
-    public PaymentDTO getPayment() {
-        return payment;
-    }
-
-    public void setPayment(PaymentDTO payment) {
-        this.payment = payment;
-    }
-
     public UserDTO getUser() {
         return user;
     }
@@ -101,7 +92,6 @@ public class ReservationDTO {
                 ", movieInfo=" + movieInfo +
                 ", schedule=" + schedule +
                 ", reservedSeat=" + reservedSeat +
-                ", payment=" + payment +
                 ", user=" + user +
                 '}';
     }
@@ -118,14 +108,13 @@ public class ReservationDTO {
                 Objects.equals(movieInfo, that.movieInfo) &&
                 Objects.equals(schedule, that.schedule) &&
                 Objects.equals(reservedSeat, that.reservedSeat) &&
-                Objects.equals(payment, that.payment) &&
                 Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, ticketAvailableNr, dateTime, hall, movieInfo, schedule, reservedSeat, payment, user);
+        return Objects.hash(id, ticketAvailableNr, dateTime, hall, movieInfo, schedule, reservedSeat, user);
     }
 }
 

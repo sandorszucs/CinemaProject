@@ -36,25 +36,18 @@ public class Reservation {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "transactionid")
-    private Payment payment;
-
 
     public Reservation(int ticketAvailableNr, Date dateTime, User user,
-                       MovieInfo movieInfo, Schedule schedule, List<ReservedSeat> reservedSeat,
-                       Payment payment) {
+                       MovieInfo movieInfo, Schedule schedule, List<ReservedSeat> reservedSeat) {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.user = user;
         this.movieInfo = movieInfo;
         this.schedule = schedule;
         this.reservedSeat = reservedSeat;
-        this.payment = payment;
     }
 
     public Reservation() {
@@ -90,14 +83,6 @@ public class Reservation {
 
     public void setReservedSeat(List<ReservedSeat> reservedSeat) {
         this.reservedSeat = reservedSeat;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     public long getId() {

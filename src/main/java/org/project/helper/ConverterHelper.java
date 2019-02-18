@@ -98,15 +98,6 @@ public class ConverterHelper {
         return user;
     }
 
-    public Payment convertPayment(PaymentDTO paymentDTO){
-        Payment payment = new Payment();
-
-        payment.setAmount(paymentDTO.getAmount());
-        payment.setTransactionId(paymentDTO.getTransactionId());
-
-        return payment;
-    }
-
     public Schedule convertSchedule(ScheduleDTO scheduleDTO) {
         Schedule schedule = new Schedule();
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());

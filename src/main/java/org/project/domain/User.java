@@ -33,19 +33,6 @@ public class User {
     @Column(name = "email", nullable = true)
     private String email;
 
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id")
-    private List<Payment> payments;
-
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
-    }
-
     public String getFirstName() {
         return firstName;
     }

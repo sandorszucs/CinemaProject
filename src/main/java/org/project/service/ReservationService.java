@@ -42,18 +42,15 @@ public class ReservationService {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
-        PaymentDTO paymentDTO = new PaymentDTO();
 
 
         reservationDTO.setId(reservation.getId());
         reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
         reservationDTO.setDateTime(reservation.getDateTime());
-        reservationDTO.setPayed(reservation.getPayed());
 
         reservationDTO.setSchedule(scheduleDTO);
         reservationDTO.setReservedSeats(reservedSeatDTO);
         reservationDTO.setMovieInfo(movieInfoDTO);
-        reservationDTO.setPayment(paymentDTO);
 
         return reservationDTO;
     }
@@ -66,21 +63,18 @@ public class ReservationService {
         MovieInfo movieInfo = converterHelper.convertMovieInfo(reservationDTO.getMovieInfo(), reservationDTO.getId());
         User user = converterHelper.convertUser(reservationDTO.getUser());
         List<ReservedSeat> reservedSeat = converterHelper.convertReservedSeats(reservationDTO.getReservedSeats()); // kell egy s betu
-        Payment payment = converterHelper.convertPayment(reservationDTO.getPayment());
 
         schedule.setHall(hall);
 
         reservation.setId(reservationDTO.getId());
         reservation.setTicketAvailableNr(reservationDTO.getTicketAvailableNr());
         reservation.setDateTime(reservationDTO.getDateTime());
-        reservation.setPayed(reservationDTO.getPayed());
 
         reservation.setUser(user);
 
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
         reservation.setMovieInfo(movieInfo);
-        reservation.setPayment(payment);
 
 
         return reservation;
@@ -102,17 +96,14 @@ public class ReservationService {
         Schedule schedule = new Schedule();
         List<ReservedSeat> reservedSeat = new ArrayList<>();
         MovieInfo movieInfo = new MovieInfo();
-        Payment payment = new Payment();
 
         reservation.setId(dto.getId());
         reservation.setTicketAvailableNr(dto.getTicketAvailableNr());
         reservation.setDateTime(dto.getDateTime());
-        reservation.setPayed(dto.getPayed());
 
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
         reservation.setMovieInfo(movieInfo);
-        reservation.setPayment(payment);
 
         Reservation savedReservation = reservationRepository.save(reservation);
         return convertToDto(savedReservation);
@@ -125,6 +116,4 @@ public class ReservationService {
         }
         return false;
     }
-
-    // BOOLEAN METHOD IS PAYED!
 }
