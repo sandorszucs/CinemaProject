@@ -81,7 +81,6 @@ public class ReservationIntegrationTest {
         reservationDTO.setMovieInfo(movieInfo);
         reservationDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
         reservationDTO.setSchedule(scheduleDTO);
-        reservationDTO.setPayed(true);
         reservationDTO.setTicketAvailableNr(20);
         reservationDTO.setHall(hall);
         Date movieDate = new Date();

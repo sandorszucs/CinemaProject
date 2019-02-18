@@ -10,7 +10,6 @@ public class ReservationDTO {
     private long id;
     private int ticketAvailableNr;
     private Date dateTime;
-    private Boolean isPayed;
 
     private HallDTO hall;
     private MovieInfoDTO movieInfo;
@@ -41,14 +40,6 @@ public class ReservationDTO {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public Boolean getPayed() {
-        return isPayed;
-    }
-
-    public void setPayed(Boolean payed) {
-        isPayed = payed;
     }
 
     public HallDTO getHall() {
@@ -106,7 +97,6 @@ public class ReservationDTO {
                 "id=" + id +
                 ", ticketAvailableNr=" + ticketAvailableNr +
                 ", dateTime=" + dateTime +
-                ", isPayed=" + isPayed +
                 ", hall=" + hall +
                 ", movieInfo=" + movieInfo +
                 ", schedule=" + schedule +
@@ -124,7 +114,6 @@ public class ReservationDTO {
         return id == that.id &&
                 ticketAvailableNr == that.ticketAvailableNr &&
                 Objects.equals(dateTime, that.dateTime) &&
-                Objects.equals(isPayed, that.isPayed) &&
                 Objects.equals(hall, that.hall) &&
                 Objects.equals(movieInfo, that.movieInfo) &&
                 Objects.equals(schedule, that.schedule) &&
@@ -136,7 +125,7 @@ public class ReservationDTO {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, ticketAvailableNr, dateTime, isPayed, hall, movieInfo, schedule, reservedSeat, payment, user);
+        return Objects.hash(id, ticketAvailableNr, dateTime, hall, movieInfo, schedule, reservedSeat, payment, user);
     }
 }
 

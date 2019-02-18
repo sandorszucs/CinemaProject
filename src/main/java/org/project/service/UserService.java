@@ -79,8 +79,8 @@ public class UserService {
         return convertToDto(user);
     }
 
-    public UserDTO updateUser(UserDTO dto) {
-        User user = userRepository.findOne(dto.getId());
+    public UserDTO updateUser(long id, UserDTO dto) {
+        User user = userRepository.findOne(id);
         user.setId(dto.getId());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());

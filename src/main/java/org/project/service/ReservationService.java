@@ -95,8 +95,8 @@ public class ReservationService {
         return convertToDto(reserved);
     }
 
-    public ReservationDTO updateReservation(ReservationDTO dto) {
-        Reservation reservation = reservationRepository.findOne(dto.getId());
+    public ReservationDTO updateReservation(long id, ReservationDTO dto) {
+        Reservation reservation = reservationRepository.findOne(id);
 
 
         Schedule schedule = new Schedule();

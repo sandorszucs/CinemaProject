@@ -21,7 +21,7 @@ public class Hall {
     private String location;
 
     @Column(name = "capacity")
-    private int capacity;
+    private int capacity = 40;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "seat_id")

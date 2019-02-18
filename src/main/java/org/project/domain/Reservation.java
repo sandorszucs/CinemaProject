@@ -20,14 +20,10 @@ public class Reservation {
     private long id;
 
     @Column(name = "ticketAvailableNr")
-    private int ticketAvailableNr = 50;
+    private int ticketAvailableNr = 40;
 
     @Column(name = "createdDateTime")
     private Date dateTime;
-
-    @Column(name = "isPayed")
-    private Boolean isPayed;
-
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
@@ -49,12 +45,11 @@ public class Reservation {
     private Payment payment;
 
 
-    public Reservation(int ticketAvailableNr, Date dateTime, Boolean isPayed, User user,
+    public Reservation(int ticketAvailableNr, Date dateTime, User user,
                        MovieInfo movieInfo, Schedule schedule, List<ReservedSeat> reservedSeat,
                        Payment payment) {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
-        this.isPayed = isPayed;
         this.user = user;
         this.movieInfo = movieInfo;
         this.schedule = schedule;
@@ -127,14 +122,6 @@ public class Reservation {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public Boolean getPayed() {
-        return isPayed;
-    }
-
-    public void setPayed(Boolean payed) {
-        isPayed = payed;
     }
 
 }

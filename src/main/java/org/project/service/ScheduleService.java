@@ -6,9 +6,10 @@ import org.project.helper.ConverterHelper;
 import org.project.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -24,6 +25,32 @@ public class ScheduleService {
         Schedule scheduleObject = convert(scheduleDTO);
         return scheduleRepository.save(scheduleObject);
     }
+
+    @Transactional
+    public List<ScheduleDTO> getSchedules() {
+        Iterator<Schedule> iterator =
+                scheduleRepository.findAll().iterator();
+        List<ScheduleDTO> list = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            Schedule schedule = iterator.next();
+            ScheduleDTO scheduleDTO = convertToDto(schedule);
+            list.add(scheduleDTO);
+        }
+        return list;
+    }
+
+//    public boolean CanSellMoreTickets (int ticketAvailableNr){
+//        int ticketNr = 40;
+//        if (ticketAvailableNr == 0){
+//            System.out.println("No more available tickets");
+//        }
+//        else {
+//            System.out.println("No more available tickets");
+//        }
+//        return
+//    };
+
 
 
     private ScheduleDTO convertToDto(Schedule schedule) {

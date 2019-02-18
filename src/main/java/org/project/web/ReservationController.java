@@ -17,16 +17,17 @@ public class ReservationController {
         return reservationService.getReservationById(id);
     }
 
-
+    @ResponseBody
     @RequestMapping(path = "/reservation", method = RequestMethod.POST)
-    public void saveReservation(@RequestBody ReservationDTO reservationDTO) {
+    public ReservationDTO saveReservation(@RequestBody ReservationDTO reservationDTO) {
         reservationService.saveReservation(reservationDTO);
+        return reservationDTO;
     }
 
 
     @RequestMapping(path = "/reservation/{id}", method = RequestMethod.PUT)
     public ReservationDTO updateReservation(@PathVariable long id, @RequestBody ReservationDTO dto) {
-        return reservationService.updateReservation(dto);
+        return reservationService.updateReservation(id, dto);
     }
 
     @RequestMapping(path = "/reservation/{id}", method = RequestMethod.DELETE)
