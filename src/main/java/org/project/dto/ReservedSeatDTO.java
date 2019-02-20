@@ -6,6 +6,34 @@ public class ReservedSeatDTO {
 
     private long id;
     private SeatDTO seat;
+    private UserDTO user;
+    private ScheduleDTO schedule;
+    private ReservationDTO reservation;
+
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public ScheduleDTO getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(ScheduleDTO schedule) {
+        this.schedule = schedule;
+    }
+
+    public ReservationDTO getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(ReservationDTO reservation) {
+        this.reservation = reservation;
+    }
 
     public long getId() {
         return id;
@@ -28,6 +56,9 @@ public class ReservedSeatDTO {
         return "ReservedSeatDTO{" +
                 "id=" + id +
                 ", seat=" + seat +
+                ", user=" + user +
+                ", schedule=" + schedule +
+                ", reservation=" + reservation +
                 '}';
     }
 
@@ -37,12 +68,15 @@ public class ReservedSeatDTO {
         if (o == null || getClass() != o.getClass()) return false;
         ReservedSeatDTO that = (ReservedSeatDTO) o;
         return id == that.id &&
-                Objects.equals(seat, that.seat);
+                Objects.equals(seat, that.seat) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(schedule, that.schedule) &&
+                Objects.equals(reservation, that.reservation);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, seat);
+        return Objects.hash(id, seat, user, schedule, reservation);
     }
 }
