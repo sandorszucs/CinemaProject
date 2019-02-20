@@ -18,6 +18,15 @@ public class ReservationService {
     @Autowired
     private ConverterHelper converterHelper;
 
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SeatRepository seatRepository;
+
 
     public void setConverterHelper(ConverterHelper converterHelper) {
         this.converterHelper = converterHelper;
@@ -38,16 +47,13 @@ public class ReservationService {
     private ReservationDTO convertToDto(Reservation reservation) {
 
         ReservationDTO reservationDTO = new ReservationDTO();
-
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
 
-
         reservationDTO.setId(reservation.getId());
         reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
         reservationDTO.setDateTime(reservation.getDateTime());
-
         reservationDTO.setSchedule(scheduleDTO);
         reservationDTO.setReservedSeats(reservedSeatDTO);
         reservationDTO.setMovieInfo(movieInfoDTO);
@@ -57,26 +63,25 @@ public class ReservationService {
 
     private Reservation convert(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
-//        Schedule schedule = new Schedule();
-        Schedule schedule = converterHelper.convertSchedule(reservationDTO.getSchedule());
-        Hall hall = converterHelper.convertHall(reservationDTO.getHall(), reservationDTO.getId());
-        MovieInfo movieInfo = converterHelper.convertMovieInfo(reservationDTO.getMovieInfo(), reservationDTO.getId());
-        User user = converterHelper.convertUser(reservationDTO.getUser());
-        List<ReservedSeat> reservedSeat = converterHelper.convertReservedSeats(reservationDTO.getReservedSeats()); // kell egy s betu
 
-        schedule.setHall(hall);
+        Schedule schedule = scheduleRepository.findOne(reservationDTO.getSchedule().getId());
+        User user = userRepository.findOne(reservationDTO.getUser().getId());
 
+        List <ReservedSeat> reservedSeats = new ArrayList<>();
+        for (ReservedSeatDTO rv : reservationDTO.getReservedSeats()) {
+            Seat seat = seatRepository.findOne(rv.getSeat().getId());
+            ReservedSeat reservedSeat1 = new ReservedSeat();
+            reservedSeat1.setSeat(seat);
+            reservedSeat1.setUser(user);
+            reservedSeat1.setSchedule(schedule);
+            reservedSeats.add(reservedSeat1);
+        }
+        reservation.setReservedSeat(reservedSeats);
         reservation.setId(reservationDTO.getId());
         reservation.setTicketAvailableNr(reservationDTO.getTicketAvailableNr());
         reservation.setDateTime(reservationDTO.getDateTime());
-
         reservation.setUser(user);
-
         reservation.setSchedule(schedule);
-        reservation.setReservedSeat(reservedSeat);
-        reservation.setMovieInfo(movieInfo);
-
-
         return reservation;
     }
 
@@ -92,19 +97,13 @@ public class ReservationService {
     public ReservationDTO updateReservation(long id, ReservationDTO dto) {
         Reservation reservation = reservationRepository.findOne(id);
 
-
         Schedule schedule = new Schedule();
         List<ReservedSeat> reservedSeat = new ArrayList<>();
-        MovieInfo movieInfo = new MovieInfo();
-
         reservation.setId(dto.getId());
         reservation.setTicketAvailableNr(dto.getTicketAvailableNr());
         reservation.setDateTime(dto.getDateTime());
-
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
-        reservation.setMovieInfo(movieInfo);
-
         Reservation savedReservation = reservationRepository.save(reservation);
         return convertToDto(savedReservation);
     }

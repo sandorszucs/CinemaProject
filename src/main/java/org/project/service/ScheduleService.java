@@ -40,17 +40,13 @@ public class ScheduleService {
         return list;
     }
 
-//    public boolean CanSellMoreTickets (int ticketAvailableNr){
-//        int ticketNr = 40;
-//        if (ticketAvailableNr == 0){
-//            System.out.println("No more available tickets");
-//        }
-//        else {
-//            System.out.println("No more available tickets");
-//        }
-//        return
-//    };
-
+    public boolean canSellMoreTickets (int ticketAvailableNr){
+        if (ticketAvailableNr > 0){
+            System.out.println("More available tickets");
+            return true;
+        }
+        return false;
+    }
 
 
     private ScheduleDTO convertToDto(Schedule schedule) {
@@ -58,7 +54,6 @@ public class ScheduleService {
         HallDTO hallDTO = new HallDTO();
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
         List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
-
 
         scheduleDTO.setId(schedule.getId());
         scheduleDTO.setMovieStartTime(schedule.getMovieStartTime());
@@ -72,15 +67,10 @@ public class ScheduleService {
         Schedule schedule = new Schedule();
         Hall hall = converterHelper.convertHall(scheduleDTO.getHall(),scheduleDTO.getId());
         MovieInfo movieInfo = converterHelper.convertMovieInfo(scheduleDTO.getMovieInfo(),scheduleDTO.getId());
-
-        List<ReservedSeat> reservedSeat = converterHelper.convertReservedSeats(scheduleDTO.getReservedSeats());
-
         schedule.setId(scheduleDTO.getId());
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
-
         schedule.setHall(hall);
         schedule.setMovieInfo(movieInfo);
-        schedule.setReservedSeats(reservedSeat);
 
         return schedule;
     }
@@ -100,7 +90,6 @@ public class ScheduleService {
         Hall hall = new Hall();
         MovieInfo movieInfo = new MovieInfo();
         List<ReservedSeat> reservedSeat = new ArrayList<>();
-
 
         schedule.setId(dto.getId());
         schedule.setMovieStartTime(dto.getMovieStartTime());
@@ -124,12 +113,3 @@ public class ScheduleService {
         this.converterHelper = converterHelper;
     }
 }
-
-     /*populate movie info method
-    following methods needs to be implemented:
-
-    - GetAllAvailableSeats
-    - CanISellMoreTickets?
-    - GetAllScheduledMovieFromNextWeek
-    */
-

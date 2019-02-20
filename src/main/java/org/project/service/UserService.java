@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 //import org.springframework.data.domain.PageRequest;
 //import org.springframework.data.domain.Pageable;
 
-
 @Service
 public class UserService {
 
@@ -50,7 +49,7 @@ public class UserService {
             throw new IllegalArgumentException("Please provide your telephone number!");
         }
 
-        User userObject = converterHelper.convertUser(userDTO);
+        User userObject = converterHelper.convertUser(userDTO, 0);
         return userRepository.save(userObject);
     }
 
