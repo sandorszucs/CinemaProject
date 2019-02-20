@@ -33,6 +33,7 @@ public class UserIntegrationTest {
         userDTO.setTelephoneNumber("0740611695");
         userDTO.setEmail("smith_george@gmail.com");
         User savedUser = userService.saveUser(userDTO);
+
         //update
 //        savedUser.setLastName("Bela");
 //        savedUser.setFirstName("Andras");

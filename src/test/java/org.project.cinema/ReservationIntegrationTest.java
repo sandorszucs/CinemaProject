@@ -28,43 +28,23 @@ public class ReservationIntegrationTest {
     public void testSave() {
 
         SeatDTO seat = new SeatDTO();
-        seat.setRow(5);
-        seat.setSeatNumber(4);
+        seat.setId(5);
 
         SeatDTO seat2 = new SeatDTO();
-        seat2.setRow(3);
-        seat2.setSeatNumber(6);
+        seat2.setId(6);
 
         UserDTO user = new UserDTO();
-        user.setFirstName("Sandor");
-        user.setLastName("Szucs");
-        user.setPassword("secpass");
-        user.setTelephoneNumber("893253");
-        user.setEmail("ave_maria@gmail.com");
-
-        MovieInfoDTO movieInfo = new MovieInfoDTO();
-        movieInfo.setActor("Brie Larson, Samuel L. Jackson, Gemma Chan");
-        movieInfo.setDirector("Anna Boden, Ryan Fleck");
-        movieInfo.setGenre("Sci-Fi, Adventure, Action");
-        movieInfo.setProduction(2019);
-        movieInfo.setTitle("Captain Marvel");;
+        user.setId(1);
 
         ReservedSeatDTO reservedSeat = new ReservedSeatDTO();
         reservedSeat.setSeat(seat);
+        reservedSeat.setUser(user);
         ReservedSeatDTO reservedSeat2 = new ReservedSeatDTO();
         reservedSeat2.setSeat(seat2);
-
-        HallDTO hall = new HallDTO();
-        hall.setCapacity(25);
-
-        hall.setLocation("London");
-        hall.setSeats(Arrays.asList(seat,seat2));
+        reservedSeat2.setUser(user);
 
         ScheduleDTO scheduleDTO = new ScheduleDTO();
-        scheduleDTO.setHall(hall);
-        scheduleDTO.setMovieInfo(movieInfo);
-
-
+        scheduleDTO.setId(5);
 
         Date date  = new Date();
         date.setTime(System.currentTimeMillis());
@@ -72,18 +52,17 @@ public class ReservationIntegrationTest {
 
         scheduleDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
 
-
         ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setMovieInfo(movieInfo);
-        reservationDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
         reservationDTO.setSchedule(scheduleDTO);
         reservationDTO.setTicketAvailableNr(20);
-        reservationDTO.setHall(hall);
+        reservationDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
+
         Date movieDate = new Date();
 
         date.setTime(System.currentTimeMillis());
         reservationDTO.setDateTime(movieDate);
         reservationDTO.setUser(user);
+
         reservationService.saveReservation(reservationDTO);
     }
 }

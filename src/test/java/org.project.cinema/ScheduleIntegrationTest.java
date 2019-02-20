@@ -43,22 +43,18 @@ public class ScheduleIntegrationTest {
     @Test
     @Rollback(false)
     public void testSave() {
-        long id = 4L;
 
         SeatDTO seat = new SeatDTO();
-        seat.setId(id);
         seat.setRow(1);
         seat.setSeatNumber(1);
 
         SeatDTO seat2 = new SeatDTO();
-        seat2.setId(5L);
         seat2.setRow(1);
         seat2.setSeatNumber(2);
 
 
         HallDTO hall = new HallDTO();
         hall.setCapacity(45);
-        hall.setId(id);
         hall.setLocation("CJ");
         hall.setSeats(Arrays.asList(seat,seat2));
 
@@ -66,16 +62,13 @@ public class ScheduleIntegrationTest {
         movieInfo.setActor("Sanyika");
         movieInfo.setDirector("Sanyika");
         movieInfo.setGenre("Fantasy");
-        movieInfo.setId(id);
         movieInfo.setProduction(2019);
         movieInfo.setTitle("The best programmer");
 
 
         ReservedSeatDTO reservedSeat = new ReservedSeatDTO();
-        reservedSeat.setId(id);
         reservedSeat.setSeat(seat);
         ReservedSeatDTO reservedSeat2 = new ReservedSeatDTO();
-        reservedSeat2.setId(5L);
         reservedSeat2.setSeat(seat2);
 
 
@@ -85,15 +78,9 @@ public class ScheduleIntegrationTest {
         Date date  = new Date();
         date.setTime(System.currentTimeMillis());
         scheduleDTO.setMovieStartTime(date);
-        scheduleDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
-        scheduleDTO.setId(id);
-
 
         scheduleService.saveSchedule(scheduleDTO);
 
-//        ScheduleDTO result = scheduleService.getScheduleById(id);
-//
-//        Assertions.assertThat(result.getMovieStartTime())
     }
 
 }
