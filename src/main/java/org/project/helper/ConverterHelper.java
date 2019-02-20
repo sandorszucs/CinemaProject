@@ -12,6 +12,9 @@ import java.util.List;
 public class ConverterHelper {
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private HallRepository hallRepository;
 
     @Autowired
@@ -36,7 +39,6 @@ public class ConverterHelper {
             reservedSeat.setId(seatDTO.getId());
             List<Seat> seat = convertSeat(Arrays.asList(seatDTO.getSeat()));
             reservedSeat.setSeat(seat.get(0));
-
             reservedSeats.add(reservedSeat);
         }
         return reservedSeats;
@@ -45,7 +47,8 @@ public class ConverterHelper {
     public Hall convertHall(HallDTO hallDTO, long id) {
         Hall hall = hallRepository.findHallById(id);
         if (hall == null){
-            hall = new Hall();// if hall doesn't exist in the data base, ex: findById returns null, then create new hall Object
+            hall = new Hall();// if hall doesn't exist in the data base, ex: findById returns null,
+            // then create new hall Object
         }
         hall.setCapacity(hallDTO.getCapacity());
         hall.setId(hallDTO.getId());
@@ -66,6 +69,7 @@ public class ConverterHelper {
             seat.setId(seatDTO.getId());
             seat.setRow(seatDTO.getRow());
             seat.setSeatNumber(seatDTO.getSeatNumber());
+
             seats.add(seat);
         }
         return seats; //returns list of seats which were converted from seatDTO
@@ -86,9 +90,11 @@ public class ConverterHelper {
 
         return movieInfo;
     }
-
-    public User convertUser(UserDTO userDTO) {
-        User user = new User();
+    public User convertUser(UserDTO userDTO, long id) {
+        User user = userRepository.findUserById(id);
+        if (user == null) {
+            user = new User();
+        }
         user.setId(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -102,8 +108,10 @@ public class ConverterHelper {
         Schedule schedule = new Schedule();
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
         schedule.setId(scheduleDTO.getId());
-        schedule.setMovieInfo(schedule.getMovieInfo());
+
+        // todo: avoid NPE
+        MovieInfo movieInfo = convertMovieInfo(scheduleDTO.getMovieInfo(), scheduleDTO.getMovieInfo().getId());
+        schedule.setMovieInfo(movieInfo);
         return schedule;
     }
-
 }
