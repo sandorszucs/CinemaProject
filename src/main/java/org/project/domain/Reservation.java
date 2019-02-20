@@ -25,27 +25,22 @@ public class Reservation {
     @Column(name = "createdDateTime")
     private Date dateTime;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "movieInfo_id")
-    private MovieInfo movieInfo;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reservation")
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservation_id")
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
 
-    public Reservation(int ticketAvailableNr, Date dateTime, User user,
-                       MovieInfo movieInfo, Schedule schedule, List<ReservedSeat> reservedSeat) {
+    public Reservation(int ticketAvailableNr, Date dateTime, User user, Schedule schedule, List<ReservedSeat> reservedSeat) {
         this.ticketAvailableNr = ticketAvailableNr;
         this.dateTime = dateTime;
         this.user = user;
-        this.movieInfo = movieInfo;
         this.schedule = schedule;
         this.reservedSeat = reservedSeat;
     }
@@ -59,14 +54,6 @@ public class Reservation {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public MovieInfo getMovieInfo() {
-        return movieInfo;
-    }
-
-    public void setMovieInfo(MovieInfo movieInfo) {
-        this.movieInfo = movieInfo;
     }
 
     public Schedule getSchedule() {
