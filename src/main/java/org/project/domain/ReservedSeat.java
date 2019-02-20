@@ -16,19 +16,30 @@ public class ReservedSeat {
     )
     private long id;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.LAZY)
     private Seat seat;
 
-
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.LAZY)
     private User user;
 
-
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne (fetch = FetchType.LAZY)
     private Schedule schedule;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Reservation reservation;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
 
     public long getId() {
         return id;
