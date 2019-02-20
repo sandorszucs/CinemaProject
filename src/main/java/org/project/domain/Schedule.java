@@ -42,7 +42,6 @@ public class Schedule {
     }
 
     public Schedule() {
-
     }
 
     public List<ReservedSeat> getReservedSeats() {
