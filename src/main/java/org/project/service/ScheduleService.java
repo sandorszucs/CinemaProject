@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,12 +41,31 @@ public class ScheduleService {
         return list;
     }
 
-    public boolean canSellMoreTickets (int ticketAvailableNr){
-        if (ticketAvailableNr > 0){
-            System.out.println("More available tickets");
+    public boolean canSellMoreTickets (ScheduleDTO scheduleDTO){
+        List<Seat> allAvailableSeat = getAllAvailableSeat(scheduleDTO);
+        if (allAvailableSeat.size() > 0){
+            System.out.println("There are " + allAvailableSeat + " More available tickets");
             return true;
         }
         return false;
+    }
+
+    public List<Seat> getAllAvailableSeat (ScheduleDTO scheduleDTO){
+        List<SeatDTO> seats = new ArrayList<>();
+//        Schedule scheduleObject = convert(scheduleDTO);
+//
+        List<SeatDTO> seatDTOs = scheduleDTO.getHall().getSeats();
+        List<ReservedSeatDTO> reservedSeats = scheduleDTO.getReservedSeats();
+
+        for(SeatDTO seat:seatDTOs){
+            for(ReservedSeatDTO reservedSeatDTO : reservedSeats){
+                if(reservedSeatDTO.getSeat() != seat){
+                    seats.add(seat);
+                 }
+            }
+        }
+        List<Seat> availableSeats = converterHelper.convertSeat(seats);
+        return availableSeats;
     }
 
 
