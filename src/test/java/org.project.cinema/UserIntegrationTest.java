@@ -23,23 +23,38 @@ public class UserIntegrationTest {
     @Autowired
     private UserService userService;
 
+
+    // with this method you can directly save a user in DB
     @Test
     public void testSave() {
-        //save
         UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName("Smith");
-        userDTO.setLastName("George");
+        userDTO.setFirstName("Sandor");
+        userDTO.setLastName("Szucs");
         userDTO.setPassword("firstpass");
         userDTO.setTelephoneNumber("0740611695");
-        userDTO.setEmail("smith_george@gmail.com");
+        userDTO.setEmail("szucs_sandor_lma@yahoo.com");
         User savedUser = userService.saveUser(userDTO);
+    }
 
-        //update
-//        savedUser.setLastName("Bela");
-//        savedUser.setFirstName("Andras");
-//        userService.updateUser(userService.convertToDto(savedUser));
-//
-//        //delete
-//        userService.deleteUserById(savedUser.getId());
+    //with this method after you enter an ID you can delete a user from the DB
+    @Test
+    public void testDelete() {
+        userService.deleteUserById(1);
+    }
+
+    // this method shows you the user with the id given
+    @Test
+    public void testGetUserById () {
+        System.out.println(userService.getUserById(1));
+    }
+
+    // with this method you can update the info of a user
+    @Test
+    public void testUpdate (){
+
+        UserDTO savedUser = userService.getUserById(1);
+        savedUser.setLastName("Boda");
+        savedUser.setFirstName("Patrick");
+        userService.updateUser(savedUser.getId(),savedUser);
     }
 }
