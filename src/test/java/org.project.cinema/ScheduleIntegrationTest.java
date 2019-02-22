@@ -95,6 +95,12 @@ public class ScheduleIntegrationTest {
     @Test
     public void testAvailableSeat(){
         ScheduleDTO scheduleDTO = scheduleService.getScheduleById(5);
+        System.out.println(scheduleDTO.getId());
+        System.out.println(scheduleDTO.getMovieInfo());
+        System.out.println(scheduleDTO.getMovieStartTime());
+        System.out.println(scheduleDTO.getReservedSeats());
+        System.out.println(scheduleDTO.getHall());
+
         List<Seat> getAllAvailableSeat = scheduleService.getAllAvailableSeat(scheduleDTO);
 //        int allAvailableSeat = scheduleService.getAllAvailableSeat(scheduleDTO);
 
