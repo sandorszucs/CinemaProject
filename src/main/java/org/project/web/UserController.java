@@ -1,6 +1,7 @@
 package org.project.web;
 
 import org.project.dto.UserDTO;
+import org.project.dto.helper.Login;
 import org.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,13 @@ public class UserController {
         userService.saveUser(userDTO);
         return userDTO;
     }
+
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public Login checkLogin(@RequestBody Login login) {
+        System.out.println("HELLO");
+        return userService.checkLogin(login);
+    }
+
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.PUT)
     public UserDTO updateUser(@PathVariable long id, @RequestBody UserDTO dto) {

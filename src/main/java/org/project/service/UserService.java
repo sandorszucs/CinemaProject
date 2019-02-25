@@ -2,6 +2,7 @@ package org.project.service;
 
 import org.project.domain.User;
 import org.project.dto.UserDTO;
+import org.project.dto.helper.Login;
 import org.project.helper.ConverterHelper;
 import org.project.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,16 @@ public class UserService {
         return false;
     }
 
+    public Login checkLogin(Login login)
+    {
+        User usr = userRepository.findByEmail(login.getEmail());
+        if (usr != null){
+            if(usr.getPassword().equals(login.getPassword())){
+                return login;
+            }
+        }
+        return null;
+    }
 //    public Page<User> getAllUsers ( int page, int size){         DO I NEED THIS?
 //        Pageable pageable = new PageRequest(page, size);         I NEED THIS?
 //        return userRepository.findAll(pageable);                 DO I NEED THIS?

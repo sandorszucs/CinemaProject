@@ -89,17 +89,17 @@ public class ScheduleIntegrationTest {
     }
     @Test
     public void deleteScheduleById () {
-        scheduleService.deleteScheduleById(19);
+        scheduleService.deleteScheduleById(18);
     }
 
     @Test
     public void testAvailableSeat(){
         ScheduleDTO scheduleDTO = scheduleService.getScheduleById(5);
-        System.out.println(scheduleDTO.getId());
-        System.out.println(scheduleDTO.getMovieInfo());
-        System.out.println(scheduleDTO.getMovieStartTime());
-        System.out.println(scheduleDTO.getReservedSeats());
-        System.out.println(scheduleDTO.getHall());
+        System.out.println("id = " +scheduleDTO.getId());
+        System.out.println("getMovieInfo" + scheduleDTO.getMovieInfo());
+        System.out.println("getMovieStartTime = " + scheduleDTO.getMovieStartTime());
+        System.out.println("getReservedSeats = " + scheduleDTO.getReservedSeats());
+        System.out.println("getHall = " + scheduleDTO.getHall());
 
         List<Seat> getAllAvailableSeat = scheduleService.getAllAvailableSeat(scheduleDTO);
 //        int allAvailableSeat = scheduleService.getAllAvailableSeat(scheduleDTO);
