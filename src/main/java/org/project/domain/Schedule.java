@@ -20,7 +20,7 @@ public class Schedule {
 
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "hall_id")
     private Hall hall;
 

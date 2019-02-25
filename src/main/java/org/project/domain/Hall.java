@@ -23,7 +23,7 @@ public class Hall {
     @Column(name = "capacity")
     private int capacity = 40;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "hall_id")
     private List<Seat> seats;
 
