@@ -56,12 +56,13 @@ public class ScheduleService {
 //
         List<SeatDTO> seatDTOs = scheduleDTO.getHall().getSeats();
         List<ReservedSeatDTO> reservedSeats = scheduleDTO.getReservedSeats();
-
-        for(SeatDTO seat:seatDTOs){
-            for(ReservedSeatDTO reservedSeatDTO : reservedSeats){
-                if(reservedSeatDTO.getSeat() != seat){
-                    seats.add(seat);
-                 }
+        if(seats != null) {
+            for (SeatDTO seat : seatDTOs) {
+                for (ReservedSeatDTO reservedSeatDTO : reservedSeats) {
+                    if (reservedSeatDTO.getSeat() != seat) {
+                        seats.add(seat);
+                    }
+                }
             }
         }
         List<Seat> availableSeats = converterHelper.convertSeat(seats);
