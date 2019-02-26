@@ -94,18 +94,11 @@ public class ScheduleIntegrationTest {
 
     @Test
     public void testAvailableSeat(){
-        ScheduleDTO scheduleDTO = scheduleService.getScheduleById(5);
-        System.out.println("id = " +scheduleDTO.getId());
-        System.out.println("getMovieInfo" + scheduleDTO.getMovieInfo());
-        System.out.println("getMovieStartTime = " + scheduleDTO.getMovieStartTime());
-        System.out.println("getReservedSeats = " + scheduleDTO.getReservedSeats());
-        System.out.println("getHall = " + scheduleDTO.getHall());
 
-        List<Seat> getAllAvailableSeat = scheduleService.getAllAvailableSeat(scheduleDTO);
-//        int allAvailableSeat = scheduleService.getAllAvailableSeat(scheduleDTO);
+        List<SeatDTO> getAllAvailableSeat = scheduleService.getAllAvailableSeat(5);
 
         assertThat(getAllAvailableSeat).isNotNull();
-        assertThat(getAllAvailableSeat).isEqualTo(38);
+        assertThat(getAllAvailableSeat.size()).isEqualTo(38);
     }
 
 }

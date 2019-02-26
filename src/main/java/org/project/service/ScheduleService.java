@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,22 +26,9 @@ public class ScheduleService {
         return scheduleRepository.save(scheduleObject);
     }
 
-    @Transactional
-    public List<ScheduleDTO> getSchedules() {
-        Iterator<Schedule> iterator =
-                scheduleRepository.findAll().iterator();
-        List<ScheduleDTO> list = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            Schedule schedule = iterator.next();
-            ScheduleDTO scheduleDTO = convertToDto(schedule);
-            list.add(scheduleDTO);
-        }
-        return list;
-    }
 
     public boolean canSellMoreTickets (ScheduleDTO scheduleDTO){
-        List<Seat> allAvailableSeat = getAllAvailableSeat(scheduleDTO);
+        List<SeatDTO> allAvailableSeat = getAllAvailableSeat(scheduleDTO.getId());
         if (allAvailableSeat.size() > 0){
             System.out.println("There are " + allAvailableSeat + " More available tickets");
             return true;
@@ -50,38 +36,24 @@ public class ScheduleService {
         return false;
     }
 
-    public List<Seat> getAllAvailableSeat (ScheduleDTO scheduleDTO){
-        List<SeatDTO> seats = new ArrayList<>();
-//        Schedule scheduleObject = convert(scheduleDTO);
-//
-        List<SeatDTO> seatDTOs = scheduleDTO.getHall().getSeats();
-        List<ReservedSeatDTO> reservedSeats = scheduleDTO.getReservedSeats();
+    @Transactional
+    public List<SeatDTO> getAllAvailableSeat (long scheduleId){
+        Schedule scheduleById = scheduleRepository.findOne(scheduleId);
+        List<SeatDTO> freeSeats = new ArrayList<>();
+
+        List<Seat> seats = scheduleById.getHall().getSeats();
+        List<ReservedSeat> reservedSeats = scheduleById.getReservedSeats();
         if(seats != null) {
-            for (SeatDTO seat : seatDTOs) {
-                for (ReservedSeatDTO reservedSeatDTO : reservedSeats) {
-                    if (reservedSeatDTO.getSeat() != seat) {
+            for (Seat seat : seats) {
+                for (ReservedSeat reservedSeat : reservedSeats) {
+                    if (reservedSeat.getSeat().getId() != seat.getId()) {
+                        freeSeats.add(converterHelper.convertToSeatDto(seat));
                         seats.add(seat);
                     }
                 }
             }
         }
-        List<Seat> availableSeats = converterHelper.convertSeat(seats);
-        return availableSeats;
-    }
-
-
-    private ScheduleDTO convertToDto(Schedule schedule) {
-        ScheduleDTO scheduleDTO = new ScheduleDTO();
-        HallDTO hallDTO = new HallDTO();
-        MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
-        List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
-
-        scheduleDTO.setId(schedule.getId());
-        scheduleDTO.setMovieStartTime(schedule.getMovieStartTime());
-        scheduleDTO.setHall(hallDTO);
-        scheduleDTO.setMovieInfo(movieInfoDTO);
-        scheduleDTO.setReservedSeats(reservedSeatDTO);
-        return scheduleDTO;
+        return freeSeats;
     }
 
     private Schedule convert(ScheduleDTO scheduleDTO) {
@@ -102,7 +74,7 @@ public class ScheduleService {
         if (schedule == null) {
             throw new IllegalArgumentException("No such Schedule ID is found in the Database");
         }
-        return convertToDto(schedule);
+        return converterHelper.convertScheduleToDto(schedule);
     }
 
     public ScheduleDTO updateSchedule (long id, ScheduleDTO dto) {
@@ -119,7 +91,7 @@ public class ScheduleService {
         schedule.setReservedSeats(reservedSeat);
 
         Schedule savedSchedule = scheduleRepository.save(schedule);
-        return convertToDto(savedSchedule);
+        return converterHelper.convertScheduleToDto(savedSchedule);
     }
 
     public boolean deleteScheduleById (long id) {
@@ -133,4 +105,18 @@ public class ScheduleService {
     public void setConverterHelper(ConverterHelper converterHelper) {
         this.converterHelper = converterHelper;
     }
+
+    //    @Transactional
+//    public List<ScheduleDTO> getSchedules() {
+//        Iterator<Schedule> iterator =
+//                scheduleRepository.findAll().iterator();
+//        List<ScheduleDTO> list = new ArrayList<>();
+//
+//        while (iterator.hasNext()) {
+//            Schedule schedule = iterator.next();
+//            ScheduleDTO scheduleDTO = converterHelper.convertScheduleToDto(schedule);
+//            list.add(scheduleDTO);
+//        }
+//        return list;
+//    }
 }

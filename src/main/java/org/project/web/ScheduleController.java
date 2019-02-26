@@ -18,10 +18,10 @@ public class ScheduleController {
         return scheduleService.getScheduleById(id);
     }
 
-    @RequestMapping(path = "/schedule", method =RequestMethod.GET)
-    public List<ScheduleDTO> getSchedules(){
-        return scheduleService.getSchedules();
-    }
+//    @RequestMapping(path = "/schedule", method =RequestMethod.GET)
+//    public List<ScheduleDTO> getSchedules(){
+//        return scheduleService.getSchedules();
+//    }
 
 
     @RequestMapping(path = "/schedule", method = RequestMethod.POST)
