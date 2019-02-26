@@ -32,7 +32,6 @@ public class UserController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public Login checkLogin(@RequestBody Login login) {
-        System.out.println("HELLO");
         return userService.checkLogin(login);
     }
 
@@ -46,14 +45,4 @@ public class UserController {
     public void deleteUser(@PathVariable("id") long id) {
         userService.deleteUserById(id);
     }
-
-
-    //    @RequestMapping(path = {"/{userId}"}, method = RequestMethod.GET)
-//    public UserDTO findUser(@PathVariable("userId") long userId) {
-//        LOGGER.info("userId >> {}", userId);
-//        return userService.getUserById(userId);
-//    }
-
-    //    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
 }

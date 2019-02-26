@@ -106,16 +106,27 @@ public class ScheduleService {
         this.converterHelper = converterHelper;
     }
 
-    //    @Transactional
-//    public List<ScheduleDTO> getSchedules() {
-//        Iterator<Schedule> iterator =
-//                scheduleRepository.findAll().iterator();
-//        List<ScheduleDTO> list = new ArrayList<>();
+        @Transactional
+    public List<ScheduleDTO> getSchedules() {
+        Iterator<Schedule> iterator = scheduleRepository.findAll().iterator();
+        List<ScheduleDTO> list = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            Schedule schedule = iterator.next();
+            ScheduleDTO scheduleDTO = converterHelper.convertScheduleToDto(schedule);
+            list.add(scheduleDTO);
+        }
+        return list;
+    }
+
+//    public List<HallDTO> getHalls(long id) {
+//        Iterator <Hall> iterator = scheduleRepository.findScheduleById(id);
+//        List<HallDTO> list = new ArrayList<>();
 //
 //        while (iterator.hasNext()) {
-//            Schedule schedule = iterator.next();
-//            ScheduleDTO scheduleDTO = converterHelper.convertScheduleToDto(schedule);
-//            list.add(scheduleDTO);
+//            Hall hall = iterator.next();
+//            HallDTO hallDTO = converterHelper.convertHallToDto(hall);
+//            list.add(hallDTO);
 //        }
 //        return list;
 //    }

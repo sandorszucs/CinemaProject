@@ -1,5 +1,7 @@
 package org.project.web;
 
+import org.project.domain.Schedule;
+import org.project.dto.HallDTO;
 import org.project.dto.ScheduleDTO;
 import org.project.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,19 @@ public class ScheduleController {
         return scheduleService.getScheduleById(id);
     }
 
-//    @RequestMapping(path = "/schedule", method =RequestMethod.GET)
-//    public List<ScheduleDTO> getSchedules(){
-//        return scheduleService.getSchedules();
+    @RequestMapping(path = "/schedule", method = RequestMethod.GET)
+    public List<ScheduleDTO> getSchedules(){
+        return scheduleService.getSchedules();
+    }
+
+//    @RequestMapping(path = "/schedule", method = RequestMethod.GET)
+//    public List<HallDTO> getHalls(){
+//        return scheduleService.getHalls();
+//    }
+
+//    @RequestMapping(path = "/reservation", method = RequestMethod.GET)
+//    public Schedule getAllAvailableSeatForScheduledId (@RequestParam long scheduleID) {
+//        return scheduleService.getAllAvailableSeat(scheduleID);
 //    }
 
 
