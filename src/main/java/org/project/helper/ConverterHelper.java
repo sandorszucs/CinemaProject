@@ -4,6 +4,7 @@ import org.project.domain.*;
 import org.project.dto.*;
 import org.project.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,14 +27,15 @@ public class ConverterHelper {
     @Autowired
     private ReservedSeatRepository reservedSeatRepository;
 
-    @Autowired ScheduleRepository scheduleRepository;
+    @Autowired
+    private ScheduleRepository scheduleRepository;
 
 
-    public List<ReservedSeat> convertReservedSeats(List<ReservedSeatDTO> reservedSeatDTOs){
+    public List<ReservedSeat> convertReservedSeats(List<ReservedSeatDTO> reservedSeatDTOs) {
         List<ReservedSeat> reservedSeats = new ArrayList<>();
-        for(ReservedSeatDTO seatDTO : reservedSeatDTOs){
+        for (ReservedSeatDTO seatDTO : reservedSeatDTOs) {
             ReservedSeat reservedSeat = reservedSeatRepository.findReservedSeatById(seatDTO.getId());
-            if(reservedSeat == null){
+            if (reservedSeat == null) {
                 reservedSeat = new ReservedSeat();
             }
             reservedSeat.setId(seatDTO.getId());
@@ -44,9 +46,26 @@ public class ConverterHelper {
         return reservedSeats;
     }
 
+    public List<ReservedSeatDTO> convertReservedSeatsToDto (List<ReservedSeat> reservedSeats) {
+        List<ReservedSeatDTO> reservedSeatsDTO = new ArrayList<>();
+
+        for (ReservedSeat reservedSeat : reservedSeats) {
+            ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
+            reservedSeat.setId(reservedSeat.getId());
+            reservedSeat.setUser(reservedSeat.getUser());
+            reservedSeat.setSchedule(reservedSeat.getSchedule());
+            reservedSeat.setSeat(reservedSeat.getSeat());
+            reservedSeatsDTO.add(reservedSeatDTO);
+        }
+        return reservedSeatsDTO;
+    }
+
+
+
+
     public Hall convertHall(HallDTO hallDTO, long id) {
         Hall hall = hallRepository.findHallById(id);
-        if (hall == null){
+        if (hall == null) {
             hall = new Hall();// if hall doesn't exist in the data base, ex: findById returns null,
             // then create new hall Object
         }
@@ -58,21 +77,60 @@ public class ConverterHelper {
         return hall;
     }
 
+    public HallDTO convertHallToDto(Hall hall) {
+        HallDTO hallDTO = new HallDTO();
+
+        hallDTO.setId(hall.getId());
+        hallDTO.setLocation(hall.getLocation());
+        hallDTO.setCapacity(hall.getCapacity());
+
+        List<Seat> seats = hall.getSeats();
+        hallDTO.setSeats(convertSeatToDto(seats));
+
+        return hallDTO;
+
+    }
+
+    public List<SeatDTO> convertSeatToDto(List<Seat> seats) {
+        List<SeatDTO> seatsDTO = new ArrayList<>();
+
+        for (Seat seat : seats) {
+
+            SeatDTO seatDTO = convertToSeatDto(seat);
+            seatsDTO.add(seatDTO);
+        }
+        return seatsDTO;
+    }
+
+    public SeatDTO convertToSeatDto(Seat seat) {
+        SeatDTO seatDTO = new SeatDTO();
+        seatDTO.setId(seat.getId());
+        seatDTO.setSeatNumber(seat.getSeatNumber());
+        seatDTO.setRow(seat.getRow());
+        return seatDTO;
+    }
+
+
     public List<Seat> convertSeat(List<SeatDTO> seatDTOs){// example 5 seatDTO
         List<Seat> seats = new ArrayList<>();
-        for(SeatDTO seatDTO : seatDTOs){//for every seatDTO in the list of 5
-            Seat seat = seatRepository.findSeatById(seatDTO.getId());
-            if(seat == null){
-                seat = new Seat();
-            }
-
-            seat.setId(seatDTO.getId());
-            seat.setRow(seatDTO.getRow());
-            seat.setSeatNumber(seatDTO.getSeatNumber());
+        for(SeatDTO seatDTO : seatDTOs){ //for every seatDTO in the list of 5
+            Seat seat = convertSeat(seatDTO);
 
             seats.add(seat);
         }
         return seats; //returns list of seats which were converted from seatDTO
+    }
+
+    public Seat convertSeat(SeatDTO seatDTO) {
+        Seat seat = seatRepository.findSeatById(seatDTO.getId());
+        if(seat == null){
+            seat = new Seat();
+        }
+
+        seat.setId(seatDTO.getId());
+        seat.setRow(seatDTO.getRow());
+        seat.setSeatNumber(seatDTO.getSeatNumber());
+        return seat;
     }
 
 
@@ -90,6 +148,20 @@ public class ConverterHelper {
 
         return movieInfo;
     }
+
+    @Transactional
+    public MovieInfoDTO convertMovieInfoToDto(MovieInfo movieInfo){
+        MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
+
+        movieInfoDTO.setId(movieInfo.getId());
+        movieInfoDTO.setTitle(movieInfo.getTitle());
+        movieInfoDTO.setActor(movieInfo.getActor());
+        movieInfoDTO.setDirector(movieInfo.getDirector());
+        movieInfoDTO.setGenre(movieInfo.getGenre());
+        movieInfoDTO.setProduction(movieInfo.getProduction());
+
+        return movieInfoDTO;
+    }
     public User convertUser(UserDTO userDTO, long id) {
         User user = userRepository.findUserById(id);
         if (user == null) {
@@ -104,6 +176,19 @@ public class ConverterHelper {
         return user;
     }
 
+    public UserDTO convertUserToDto (User user) {
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setId(user.getId());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setTelephoneNumber(user.getTelephoneNumber());
+
+        return userDTO;
+    }
+
     public Schedule convertSchedule(ScheduleDTO scheduleDTO) {
         Schedule schedule = new Schedule();
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
@@ -113,5 +198,23 @@ public class ConverterHelper {
         MovieInfo movieInfo = convertMovieInfo(scheduleDTO.getMovieInfo(), scheduleDTO.getMovieInfo().getId());
         schedule.setMovieInfo(movieInfo);
         return schedule;
+    }
+
+    public ScheduleDTO convertScheduleToDto (Schedule schedule) {
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+
+        scheduleDTO.setId(schedule.getId());
+        scheduleDTO.setMovieStartTime(schedule.getMovieStartTime());
+
+        HallDTO hall = convertHallToDto(schedule.getHall());
+        scheduleDTO.setHall(hall);
+
+        MovieInfoDTO movieInfo = convertMovieInfoToDto(schedule.getMovieInfo());
+        scheduleDTO.setMovieInfo(movieInfo);
+
+        List <ReservedSeatDTO> reservedSeat  = convertReservedSeatsToDto(schedule.getReservedSeats());
+        scheduleDTO.setReservedSeats(reservedSeat);
+
+        return scheduleDTO;
     }
 }
