@@ -27,9 +27,9 @@ public class ScheduleService {
     }
 
 
-    public boolean canSellMoreTickets (ScheduleDTO scheduleDTO){
+    public boolean canSellMoreTickets(ScheduleDTO scheduleDTO) {
         List<SeatDTO> allAvailableSeat = getAllAvailableSeat(scheduleDTO.getId());
-        if (allAvailableSeat.size() > 0){
+        if (allAvailableSeat.size() > 0) {
             System.out.println("There are " + allAvailableSeat + " More available tickets");
             return true;
         }
@@ -37,29 +37,42 @@ public class ScheduleService {
     }
 
     @Transactional
-    public List<SeatDTO> getAllAvailableSeat (long scheduleId){
+    public List<SeatDTO> getAllAvailableSeat(long scheduleId) {
         Schedule scheduleById = scheduleRepository.findOne(scheduleId);
         List<SeatDTO> freeSeats = new ArrayList<>();
 
         List<Seat> seats = scheduleById.getHall().getSeats();
         List<ReservedSeat> reservedSeats = scheduleById.getReservedSeats();
-        if(seats != null) {
+        if (seats != null) {
             for (Seat seat : seats) {
-                for (ReservedSeat reservedSeat : reservedSeats) {
-                    if (reservedSeat.getSeat().getId() != seat.getId()) {
-                        freeSeats.add(converterHelper.convertToSeatDto(seat));
-                        seats.add(seat);
-                    }
+                ReservedSeat seatReserved = findSeatInReservedSeats(reservedSeats, seat);
+                if (seatReserved == null) {
+                    //seat is not reserved because was not found in reserved seats list
+                    //we add a=it to the free seats list because it is not reserved
+                    freeSeats.add(converterHelper.convertToSeatDto(seat));
                 }
             }
         }
         return freeSeats;
     }
 
+    private ReservedSeat findSeatInReservedSeats(List<ReservedSeat> reservedSeats, Seat seatToFind) {
+        if (reservedSeats == null) {
+            return null;
+        }
+        for (ReservedSeat reservedSeat : reservedSeats) {
+            if (reservedSeat.getSeat().getId() == seatToFind.getId()) {
+                return reservedSeat;
+            }
+        }
+        //seat not found we return null
+        return null;
+    }
+
     private Schedule convert(ScheduleDTO scheduleDTO) {
         Schedule schedule = new Schedule();
-        Hall hall = converterHelper.convertHall(scheduleDTO.getHall(),scheduleDTO.getId());
-        MovieInfo movieInfo = converterHelper.convertMovieInfo(scheduleDTO.getMovieInfo(),scheduleDTO.getId());
+        Hall hall = converterHelper.convertHall(scheduleDTO.getHall(), scheduleDTO.getId());
+        MovieInfo movieInfo = converterHelper.convertMovieInfo(scheduleDTO.getMovieInfo(), scheduleDTO.getId());
         schedule.setId(scheduleDTO.getId());
         schedule.setMovieStartTime(scheduleDTO.getMovieStartTime());
         schedule.setHall(hall);
@@ -77,7 +90,7 @@ public class ScheduleService {
         return converterHelper.convertScheduleToDto(schedule);
     }
 
-    public ScheduleDTO updateSchedule (long id, ScheduleDTO dto) {
+    public ScheduleDTO updateSchedule(long id, ScheduleDTO dto) {
 
         Schedule schedule = scheduleRepository.findOne(id);
         Hall hall = new Hall();
@@ -94,7 +107,7 @@ public class ScheduleService {
         return converterHelper.convertScheduleToDto(savedSchedule);
     }
 
-    public boolean deleteScheduleById (long id) {
+    public boolean deleteScheduleById(long id) {
         if (scheduleRepository.findOne(id) != null) {
             scheduleRepository.delete(id);
             return true;
@@ -106,7 +119,7 @@ public class ScheduleService {
         this.converterHelper = converterHelper;
     }
 
-        @Transactional
+    @Transactional
     public List<ScheduleDTO> getSchedules() {
         Iterator<Schedule> iterator = scheduleRepository.findAll().iterator();
         List<ScheduleDTO> list = new ArrayList<>();
