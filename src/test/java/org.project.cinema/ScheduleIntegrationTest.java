@@ -98,7 +98,7 @@ public class ScheduleIntegrationTest {
         List<SeatDTO> getAllAvailableSeat = scheduleService.getAllAvailableSeat(5);
 
         assertThat(getAllAvailableSeat).isNotNull();
-        assertThat(getAllAvailableSeat.size()).isEqualTo(38);
+        assertThat(getAllAvailableSeat.size()).isEqualTo(40);
     }
 
 }
