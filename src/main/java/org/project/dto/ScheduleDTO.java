@@ -1,8 +1,6 @@
 package org.project.dto;
 
-import org.project.domain.Hall;
-import org.project.domain.MovieInfo;
-import org.project.domain.ReservedSeat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +11,7 @@ public class ScheduleDTO {
     private long id;
 
     private HallDTO hall;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private Date movieStartTime;
     private MovieInfoDTO movieInfo;
     private List<ReservedSeatDTO> reservedSeats;
