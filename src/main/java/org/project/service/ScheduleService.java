@@ -16,6 +16,9 @@ import java.util.List;
 public class ScheduleService {
 
     @Autowired
+    private HallRepository hallRepository;
+
+    @Autowired
     private ScheduleRepository scheduleRepository;
 
     @Autowired
@@ -132,15 +135,16 @@ public class ScheduleService {
         return list;
     }
 
-//    public List<HallDTO> getHalls(long id) {
-//        Iterator <Hall> iterator = scheduleRepository.findScheduleById(id);
-//        List<HallDTO> list = new ArrayList<>();
-//
-//        while (iterator.hasNext()) {
-//            Hall hall = iterator.next();
-//            HallDTO hallDTO = converterHelper.convertHallToDto(hall);
-//            list.add(hallDTO);
-//        }
-//        return list;
-//    }
+    @Transactional
+    public List<HallDTO> getHalls() {
+        Iterator<Hall> iterator = hallRepository.findAll().iterator();
+        List<HallDTO> list = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            Hall hall = iterator.next();
+            HallDTO hallDTO = converterHelper.convertHallToDto(hall);
+            list.add(hallDTO);
+        }
+        return list;
+    }
 }
