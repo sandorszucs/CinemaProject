@@ -40,7 +40,7 @@ public class UserService {
         if (lastName == null) {
             throw new IllegalArgumentException("Last name cannot be null");
         }
-        if (email == null) {
+        if (email == null ) {
             throw new IllegalArgumentException("You have to give your email address");
         }
         if (password == null) {
@@ -50,8 +50,11 @@ public class UserService {
             throw new IllegalArgumentException("Please provide your telephone number!");
         }
 
-        User userObject = converterHelper.convertUser(userDTO, 0);
-        return userRepository.save(userObject);
+        if(getUserByEmail(email) == null){
+            User userObject = converterHelper.convertUser(userDTO, 0);
+            return userRepository.save(userObject);
+        }
+        throw new IllegalArgumentException("Please provide info!");
     }
 
     public UserDTO getUserByEmail(String email) {
