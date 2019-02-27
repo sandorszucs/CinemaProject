@@ -34,7 +34,7 @@ public class ReservationService {
 
     public Reservation saveReservation(ReservationDTO reservationDTO) {
         Long reservationId = reservationDTO.getId();
-        Reservation reservationObject = convert(reservationDTO);
+        Reservation reservationObject = converterHelper.convertReservation(reservationDTO);
 
         try {
             return reservationRepository.save(reservationObject);
@@ -44,54 +44,12 @@ public class ReservationService {
         }
     }
 
-    private ReservationDTO convertToDto(Reservation reservation) {
-
-        ReservationDTO reservationDTO = new ReservationDTO();
-        ScheduleDTO scheduleDTO = new ScheduleDTO();
-        List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
-        MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
-
-        reservationDTO.setId(reservation.getId());
-        reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
-        reservationDTO.setDateTime(reservation.getDateTime());
-        reservationDTO.setSchedule(scheduleDTO);
-        reservationDTO.setReservedSeats(reservedSeatDTO);
-        reservationDTO.setMovieInfo(movieInfoDTO);
-
-        return reservationDTO;
-    }
-
-    private Reservation convert(ReservationDTO reservationDTO) {
-        Reservation reservation = new Reservation();
-
-        Schedule schedule = scheduleRepository.findOne(reservationDTO.getSchedule().getId());
-        User user = userRepository.findOne(reservationDTO.getUser().getId());
-
-        List <ReservedSeat> reservedSeats = new ArrayList<>();
-        for (ReservedSeatDTO rv : reservationDTO.getReservedSeats()) {
-            Seat seat = seatRepository.findOne(rv.getSeat().getId());
-            ReservedSeat reservedSeat1 = new ReservedSeat();
-            reservedSeat1.setSeat(seat);
-            reservedSeat1.setUser(user);
-            reservedSeat1.setSchedule(schedule);
-            reservedSeats.add(reservedSeat1);
-        }
-        reservation.setReservedSeat(reservedSeats);
-        reservation.setId(reservationDTO.getId());
-        reservation.setTicketAvailableNr(reservationDTO.getTicketAvailableNr());
-        reservation.setDateTime(reservationDTO.getDateTime());
-        reservation.setUser(user);
-        reservation.setSchedule(schedule);
-        return reservation;
-    }
-
-
     public ReservationDTO getReservationById(long id) {
         Reservation reserved = reservationRepository.findReservationById(id);
         if (reserved == null) {
             throw new IllegalArgumentException("No such ID found in the DataBase");
         }
-        return convertToDto(reserved);
+        return converterHelper.convertReservationToDto(reserved);
     }
 
     public ReservationDTO updateReservation(long id, ReservationDTO dto) {
@@ -105,7 +63,7 @@ public class ReservationService {
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
         Reservation savedReservation = reservationRepository.save(reservation);
-        return convertToDto(savedReservation);
+        return converterHelper.convertReservationToDto(savedReservation);
     }
 
     public boolean deleteReservationById(long id) {
