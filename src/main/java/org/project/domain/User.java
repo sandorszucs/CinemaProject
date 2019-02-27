@@ -30,8 +30,11 @@ public class User {
     @Column(name = "telephoneNumber", nullable = true)
     private String telephoneNumber;
 
-    @Column(name = "email", nullable = true)
+    @Column(name = "email", nullable = true, unique = true)
     private String email;
+
+
+
 
     public String getFirstName() {
         return firstName;
