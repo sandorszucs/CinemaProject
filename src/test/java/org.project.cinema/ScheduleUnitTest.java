@@ -1,5 +1,6 @@
 package org.project.cinema;
 
+import static org.assertj.core.api.Assertions.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,36 +31,45 @@ public class ScheduleUnitTest {
 
     @Test
     public void testGetById () {
-        Schedule scheduleReturned = new Schedule();
-
         Date date = new Date();
         date.setTime(System.currentTimeMillis());
 
-        scheduleReturned.setId(3L);
-        scheduleReturned.setHall(setupHall());
-        scheduleReturned.setMovieInfo(setupMovieInfo());
-        scheduleReturned.setReservedSeats(Arrays.asList(setupReservedSeat()));
-        scheduleReturned.setMovieStartTime(date);
-
-        ScheduleDTO scheduleDTO = new ScheduleDTO();
-        scheduleDTO.setMovieStartTime(date);
-        scheduleDTO.setId(scheduleReturned.getId());
-        scheduleDTO.setHall(setupHallDTO());
-        scheduleDTO.setReservedSeats(Arrays.asList(setupReservedSeatDTO()));
-        scheduleDTO.setMovieInfo(setupMovieInfoDTO());
-
+        final Schedule scheduleReturned = setupExpectedSchedule(date);
+        ScheduleDTO scheduleDTO = setupExpectedScheduleDTO(date, scheduleReturned);
 
         Mockito.when(repository.findScheduleById(3L)).thenReturn(scheduleReturned);
         Mockito.when(converterHelper.convertScheduleToDto(scheduleReturned)).thenReturn(scheduleDTO);
 
         ScheduleDTO result = service.getScheduleById(3L);
 
-        Assert.assertNotNull(result);
-        Assert.assertEquals(3L, result.getId());
-        Assert.assertEquals(result.getMovieInfo().getActor(),setupMovieInfo().getActor());
-        Assert.assertEquals(result.getHall().getCapacity(), setupHall().getCapacity());
+        assertThat(result).as("Expected scheduleDTO cannot be null").isNotNull();
+        assertThat(result.getId()).as("The found schedule dto's id has to be equal to 3").isEqualByComparingTo(3L);
+        assertThat(result.getMovieInfo().getActor()).as("Actor has to be the same as the one saved to the data base").isEqualTo(setupMovieInfo().getActor());
+        assertThat(result.getMovieStartTime()).as("Movie start time should be + ", date).isEqualTo(date);
+        assertThat(result.getHall().getCapacity()).as("The capacity of the hall shuld be 40 seats").isEqualTo(40);
     }
-
+    
+    private Schedule setupExpectedSchedule(Date date){
+        Schedule scheduleReturned = new Schedule();
+        scheduleReturned.setId(3L);
+        scheduleReturned.setHall(setupHall());
+        scheduleReturned.setMovieInfo(setupMovieInfo());
+        scheduleReturned.setReservedSeats(Arrays.asList(setupReservedSeat()));
+        scheduleReturned.setMovieStartTime(date);
+        
+        return scheduleReturned;
+    }
+    
+    private ScheduleDTO setupExpectedScheduleDTO(Date date, Schedule schedule){
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+        scheduleDTO.setMovieStartTime(date);
+        scheduleDTO.setId(schedule.getId());
+        scheduleDTO.setHall(setupHallDTO());
+        scheduleDTO.setReservedSeats(Arrays.asList(setupReservedSeatDTO()));
+        scheduleDTO.setMovieInfo(setupMovieInfoDTO());
+        return scheduleDTO;
+    }
+        
     private HallDTO setupHallDTO(){
         HallDTO hallDTO = new HallDTO();
         Hall hall = setupHall();
@@ -72,10 +82,6 @@ public class ScheduleUnitTest {
 
     private ReservedSeatDTO setupReservedSeatDTO(){
         ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
-        ReservedSeat reservedSeat = setupReservedSeat();
-
-
-
         return reservedSeatDTO;
     }
 
@@ -86,7 +92,6 @@ public class ScheduleUnitTest {
         movieInfoDTO.setProduction(movieInfo.getProduction());
         movieInfoDTO.setDirector(movieInfo.getDirector());
         movieInfoDTO.setGenre(movieInfo.getGenre());
-//        movieInfoDTO.setId();
         movieInfoDTO.setTitle(movieInfo.getTitle());
         movieInfoDTO.setActor(movieInfo.getActor());
 
