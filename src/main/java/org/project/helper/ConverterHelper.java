@@ -217,4 +217,45 @@ public class ConverterHelper {
 
         return scheduleDTO;
     }
+
+    public ReservationDTO convertReservationToDto(Reservation reservation) {
+
+        ReservationDTO reservationDTO = new ReservationDTO();
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+        List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
+        MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
+
+        reservationDTO.setId(reservation.getId());
+        reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
+        reservationDTO.setDateTime(reservation.getDateTime());
+        reservationDTO.setSchedule(scheduleDTO);
+        reservationDTO.setReservedSeats(reservedSeatDTO);
+        reservationDTO.setMovieInfo(movieInfoDTO);
+
+        return reservationDTO;
+    }
+
+    public Reservation convertReservation(ReservationDTO reservationDTO) {
+        Reservation reservation = new Reservation();
+
+        Schedule schedule = scheduleRepository.findOne(reservationDTO.getSchedule().getId());
+        User user = userRepository.findOne(reservationDTO.getUser().getId());
+
+        List <ReservedSeat> reservedSeats = new ArrayList<>();
+        for (ReservedSeatDTO rv : reservationDTO.getReservedSeats()) {
+            Seat seat = seatRepository.findOne(rv.getSeat().getId());
+            ReservedSeat reservedSeat1 = new ReservedSeat();
+            reservedSeat1.setSeat(seat);
+            reservedSeat1.setUser(user);
+            reservedSeat1.setSchedule(schedule);
+            reservedSeats.add(reservedSeat1);
+        }
+        reservation.setReservedSeat(reservedSeats);
+        reservation.setId(reservationDTO.getId());
+        reservation.setTicketAvailableNr(reservationDTO.getTicketAvailableNr());
+        reservation.setDateTime(reservationDTO.getDateTime());
+        reservation.setUser(user);
+        reservation.setSchedule(schedule);
+        return reservation;
+    }
 }
