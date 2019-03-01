@@ -11,11 +11,9 @@ public class ReservationDTO {
     private int ticketAvailableNr;
     private Date dateTime;
 
-    private HallDTO hall;
-    private MovieInfoDTO movieInfo;
-    private ScheduleDTO schedule;
-    private List<ReservedSeatDTO> reservedSeat;
-    private UserDTO user;
+    private long scheduleId;
+    private List<String> reservedSeat;//2_2//rand coloana
+    private Long userId;
 
     public long getId() {
         return id;
@@ -41,80 +39,28 @@ public class ReservationDTO {
         this.dateTime = dateTime;
     }
 
-    public HallDTO getHall() {
-        return hall;
+    public long getScheduleId() {
+        return scheduleId;
     }
 
-    public void setHall(HallDTO hall) {
-        this.hall = hall;
+    public void setScheduleId(long scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public MovieInfoDTO getMovieInfo() {
-        return movieInfo;
-    }
-
-    public void setMovieInfo(MovieInfoDTO movieInfo) {
-        this.movieInfo = movieInfo;
-    }
-
-    public ScheduleDTO getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(ScheduleDTO schedule) {
-        this.schedule = schedule;
-    }
-
-    public List<ReservedSeatDTO> getReservedSeats() {
+    public List<String> getReservedSeat() {
         return reservedSeat;
     }
 
-    public void setReservedSeats(List<ReservedSeatDTO> reservedSeat) {
+    public void setReservedSeats(List<String> reservedSeat) {
         this.reservedSeat = reservedSeat;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
-
-
-    @Override
-    public String toString() {
-        return "ReservationDTO{" +
-                "id=" + id +
-                ", ticketAvailableNr=" + ticketAvailableNr +
-                ", dateTime=" + dateTime +
-                ", hall=" + hall +
-                ", movieInfo=" + movieInfo +
-                ", schedule=" + schedule +
-                ", reservedSeat=" + reservedSeat +
-                ", user=" + user +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReservationDTO that = (ReservationDTO) o;
-        return id == that.id &&
-                ticketAvailableNr == that.ticketAvailableNr &&
-                Objects.equals(dateTime, that.dateTime) &&
-                Objects.equals(hall, that.hall) &&
-                Objects.equals(movieInfo, that.movieInfo) &&
-                Objects.equals(schedule, that.schedule) &&
-                Objects.equals(reservedSeat, that.reservedSeat) &&
-                Objects.equals(user, that.user);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, ticketAvailableNr, dateTime, hall, movieInfo, schedule, reservedSeat, user);
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
 

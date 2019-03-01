@@ -1,5 +1,7 @@
 package org.project.cinema;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.project.CinemaApplication;
@@ -25,44 +27,24 @@ public class ReservationIntegrationTest {
     private ReservationService reservationService;
 
     @Test
-    public void testSave() {
-
-        SeatDTO seat = new SeatDTO();
-        seat.setId(5);
-
-        SeatDTO seat2 = new SeatDTO();
-        seat2.setId(6);
-
-        UserDTO user = new UserDTO();
-        user.setId(1);
-
-        ReservedSeatDTO reservedSeat = new ReservedSeatDTO();
-        reservedSeat.setSeat(seat);
-        reservedSeat.setUser(user);
-        ReservedSeatDTO reservedSeat2 = new ReservedSeatDTO();
-        reservedSeat2.setSeat(seat2);
-        reservedSeat2.setUser(user);
-
-        ScheduleDTO scheduleDTO = new ScheduleDTO();
-        scheduleDTO.setId(5);
+    public void testSave() throws JsonProcessingException {
 
         Date date  = new Date();
         date.setTime(System.currentTimeMillis());
-        scheduleDTO.setMovieStartTime(date);
-
-        scheduleDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
 
         ReservationDTO reservationDTO = new ReservationDTO();
-        reservationDTO.setSchedule(scheduleDTO);
+        reservationDTO.setScheduleId(5);
         reservationDTO.setTicketAvailableNr(20);
-        reservationDTO.setReservedSeats(Arrays.asList(reservedSeat,reservedSeat2));
+        reservationDTO.setReservedSeats(Arrays.asList("2_3","4_1"));
 
         Date movieDate = new Date();
 
         date.setTime(System.currentTimeMillis());
         reservationDTO.setDateTime(movieDate);
-        reservationDTO.setUser(user);
+        reservationDTO.setUserId(1L);
 
+        ObjectMapper m = new ObjectMapper();
+        System.out.println( m.writeValueAsString(reservationDTO));
         reservationService.saveReservation(reservationDTO);
     }
 }

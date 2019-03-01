@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ConverterHelper {
 
@@ -46,7 +48,7 @@ public class ConverterHelper {
         return reservedSeats;
     }
 
-    public List<ReservedSeatDTO> convertReservedSeatsToDto (List<ReservedSeat> reservedSeats) {
+    public List<ReservedSeatDTO> convertReservedSeatsToDto(List<ReservedSeat> reservedSeats) {
         List<ReservedSeatDTO> reservedSeatsDTO = new ArrayList<>();
 
         for (ReservedSeat reservedSeat : reservedSeats) {
@@ -59,9 +61,6 @@ public class ConverterHelper {
         }
         return reservedSeatsDTO;
     }
-
-
-
 
     public Hall convertHall(HallDTO hallDTO, long id) {
         Hall hall = hallRepository.findHallById(id);
@@ -111,9 +110,9 @@ public class ConverterHelper {
     }
 
 
-    public List<Seat> convertSeat(List<SeatDTO> seatDTOs){// example 5 seatDTO
+    public List<Seat> convertSeat(List<SeatDTO> seatDTOs) {// example 5 seatDTO
         List<Seat> seats = new ArrayList<>();
-        for(SeatDTO seatDTO : seatDTOs){ //for every seatDTO in the list of 5
+        for (SeatDTO seatDTO : seatDTOs) { //for every seatDTO in the list of 5
             Seat seat = convertSeat(seatDTO);
 
             seats.add(seat);
@@ -123,7 +122,7 @@ public class ConverterHelper {
 
     public Seat convertSeat(SeatDTO seatDTO) {
         Seat seat = seatRepository.findSeatById(seatDTO.getId());
-        if(seat == null){
+        if (seat == null) {
             seat = new Seat();
         }
 
@@ -134,9 +133,9 @@ public class ConverterHelper {
     }
 
 
-    public MovieInfo convertMovieInfo(MovieInfoDTO movieDTO, long id){
+    public MovieInfo convertMovieInfo(MovieInfoDTO movieDTO, long id) {
         MovieInfo movieInfo = movieInfoRepository.findMovieInfoById(id);
-        if(movieInfo == null){
+        if (movieInfo == null) {
             movieInfo = new MovieInfo();
         }
         movieInfo.setActor(movieDTO.getActor());
@@ -150,7 +149,7 @@ public class ConverterHelper {
     }
 
     @Transactional
-    public MovieInfoDTO convertMovieInfoToDto(MovieInfo movieInfo){
+    public MovieInfoDTO convertMovieInfoToDto(MovieInfo movieInfo) {
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
 
         movieInfoDTO.setId(movieInfo.getId());
@@ -162,6 +161,7 @@ public class ConverterHelper {
 
         return movieInfoDTO;
     }
+
     public User convertUser(UserDTO userDTO, long id) {
         User user = userRepository.findUserById(id);
         if (user == null) {
@@ -176,7 +176,7 @@ public class ConverterHelper {
         return user;
     }
 
-    public UserDTO convertUserToDto (User user) {
+    public UserDTO convertUserToDto(User user) {
         UserDTO userDTO = new UserDTO();
 
         userDTO.setId(user.getId());
@@ -200,7 +200,7 @@ public class ConverterHelper {
         return schedule;
     }
 
-    public ScheduleDTO convertScheduleToDto (Schedule schedule) {
+    public ScheduleDTO convertScheduleToDto(Schedule schedule) {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
 
         scheduleDTO.setId(schedule.getId());
@@ -212,7 +212,7 @@ public class ConverterHelper {
         MovieInfoDTO movieInfo = convertMovieInfoToDto(schedule.getMovieInfo());
         scheduleDTO.setMovieInfo(movieInfo);
 
-        List <ReservedSeatDTO> reservedSeat  = convertReservedSeatsToDto(schedule.getReservedSeats());
+        List<ReservedSeatDTO> reservedSeat = convertReservedSeatsToDto(schedule.getReservedSeats());
         scheduleDTO.setReservedSeats(reservedSeat);
 
         return scheduleDTO;
@@ -221,29 +221,26 @@ public class ConverterHelper {
     public ReservationDTO convertReservationToDto(Reservation reservation) {
 
         ReservationDTO reservationDTO = new ReservationDTO();
-        ScheduleDTO scheduleDTO = new ScheduleDTO();
-        List<ReservedSeatDTO> reservedSeatDTO = scheduleDTO.getReservedSeats();
-        MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
-
         reservationDTO.setId(reservation.getId());
         reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
         reservationDTO.setDateTime(reservation.getDateTime());
-        reservationDTO.setSchedule(scheduleDTO);
-        reservationDTO.setReservedSeats(reservedSeatDTO);
-        reservationDTO.setMovieInfo(movieInfoDTO);
-
+        reservationDTO.setScheduleId(reservation.getSchedule().getId());
+        reservationDTO.setReservedSeats(reservation.getReservedSeat().stream().map(rv -> rv.getSeat().getRow() + "_" + rv.getSeat().getSeatNumber()).collect(Collectors.toList()));
         return reservationDTO;
     }
 
     public Reservation convertReservation(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
 
-        Schedule schedule = scheduleRepository.findOne(reservationDTO.getSchedule().getId());
-        User user = userRepository.findOne(reservationDTO.getUser().getId());
-
-        List <ReservedSeat> reservedSeats = new ArrayList<>();
-        for (ReservedSeatDTO rv : reservationDTO.getReservedSeats()) {
-            Seat seat = seatRepository.findOne(rv.getSeat().getId());
+        Schedule schedule = scheduleRepository.findOne(reservationDTO.getScheduleId());
+        User user = userRepository.findOne(reservationDTO.getUserId());
+        List<Seat> seatsInHall = schedule.getHall().getSeats();
+        List<ReservedSeat> reservedSeats = new ArrayList<>();
+        for (String rv : reservationDTO.getReservedSeat()) {
+            String[] seatDetails = rv.split("_");
+            Optional<Seat> first = seatsInHall.stream().filter(seat -> seat.getSeatNumber() == Long.valueOf(seatDetails[1]) &&
+                    seat.getRow() == Long.valueOf(seatDetails[0])).findFirst();
+            Seat seat = first.orElseThrow(() -> new IllegalArgumentException("Invalid seat " + rv));
             ReservedSeat reservedSeat1 = new ReservedSeat();
             reservedSeat1.setSeat(seat);
             reservedSeat1.setUser(user);

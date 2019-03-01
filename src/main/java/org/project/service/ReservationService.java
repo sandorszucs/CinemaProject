@@ -33,7 +33,6 @@ public class ReservationService {
     }
 
     public Reservation saveReservation(ReservationDTO reservationDTO) {
-        Long reservationId = reservationDTO.getId();
         Reservation reservationObject = converterHelper.convertReservation(reservationDTO);
 
         try {
