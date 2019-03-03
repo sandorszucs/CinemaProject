@@ -53,10 +53,9 @@ public class ConverterHelper {
 
         for (ReservedSeat reservedSeat : reservedSeats) {
             ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
-            reservedSeat.setId(reservedSeat.getId());
-            reservedSeat.setUser(reservedSeat.getUser());
-            reservedSeat.setSchedule(reservedSeat.getSchedule());
-            reservedSeat.setSeat(reservedSeat.getSeat());
+            reservedSeatDTO.setId(reservedSeat.getId());
+            reservedSeatDTO.setUser(convertUserToDto(reservedSeat.getUser()));
+            reservedSeatDTO.setSeat(convertToSeatDto(reservedSeat.getSeat()));
             reservedSeatsDTO.add(reservedSeatDTO);
         }
         return reservedSeatsDTO;
