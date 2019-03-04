@@ -1,6 +1,7 @@
 package org.project.cinema;
 
 import static org.assertj.core.api.Assertions.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -29,13 +30,13 @@ public class ReservationUnitTest {
     private ReservationService service;
 
     @Test
-    public void testGetById () {
+    public void testGetById() {
 
         Date date = new Date();
         date.setTime(System.currentTimeMillis());
 
         Reservation reservationReturned = setupExpectedReservation(date);
-        ReservationDTO reservationDTO = setupExpectedReservationDTO( reservationReturned);
+        ReservationDTO reservationDTO = setupExpectedReservationDTO(reservationReturned);
 
         Mockito.when(repository.findReservationById(2L)).thenReturn(reservationReturned);
         Mockito.when(converterHelper.convertReservationToDto(reservationReturned)).thenReturn(reservationDTO);
@@ -44,35 +45,27 @@ public class ReservationUnitTest {
 
         assertThat(result).as("Expected ReservationDTO cannot be null").isNotNull();
         assertThat(result.getId()).as("The found reservation dto's id has to be equal to 2").isEqualByComparingTo(2L);
-//        assertThat(result.getSchedule().getMovieInfo().getActor()).as("Actor has to be the same as the one saved to the data base").isEqualTo(setupMovieInfo().getActor());
-//        assertThat(result.getSchedule().getMovieStartTime()).as("Movie start time should be + ", date).isEqualTo(date);
-
     }
 
-    private Reservation setupExpectedReservation(Date date){
+    private Reservation setupExpectedReservation(Date date) {
         Reservation reservationReturned = new Reservation();
 
         reservationReturned.setId(2L);
-        reservationReturned.setTicketAvailableNr(40);
         reservationReturned.setDateTime(date);
         reservationReturned.setReservedSeat(Arrays.asList(setupReservedSeat()));
         reservationReturned.setUser(setupUser());
         reservationReturned.setSchedule(setupSchedule());
-        return  reservationReturned;
+        return reservationReturned;
     }
 
-    private ReservationDTO setupExpectedReservationDTO( Reservation reservation){
+    private ReservationDTO setupExpectedReservationDTO(Reservation reservation) {
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(reservation.getId());
         reservationDTO.setDateTime(reservation.getDateTime());
-        reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
-//        reservationDTO.setReservedSeats(Arrays.asList(setupReservedSeatDTO()));
-//        reservationDTO.setUser(setupUserDTO());
-//        reservationDTO.setSchedule(setupScheduleDTO());
         return reservationDTO;
     }
 
-    private Schedule setupSchedule () {
+    private Schedule setupSchedule() {
         Schedule schedule = new Schedule();
         schedule.setId(2L);
         schedule.setHall(setupHall());
@@ -86,7 +79,7 @@ public class ReservationUnitTest {
         return schedule;
     }
 
-    private ScheduleDTO setupScheduleDTO () {
+    private ScheduleDTO setupScheduleDTO() {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         Schedule schedule = setupSchedule();
 
@@ -97,7 +90,7 @@ public class ReservationUnitTest {
         return scheduleDTO;
     }
 
-    private User setupUser () {
+    private User setupUser() {
         User user = new User();
         user.setId(1L);
         user.setFirstName("Boda");
@@ -108,7 +101,7 @@ public class ReservationUnitTest {
         return user;
     }
 
-    private UserDTO setupUserDTO () {
+    private UserDTO setupUserDTO() {
         UserDTO userDTO = new UserDTO();
         User user = setupUser();
         userDTO.setId(user.getId());
@@ -120,13 +113,13 @@ public class ReservationUnitTest {
         return userDTO;
     }
 
-    private ReservedSeatDTO setupReservedSeatDTO(){
+    private ReservedSeatDTO setupReservedSeatDTO() {
         ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
 
         return reservedSeatDTO;
     }
 
-    private ReservedSeat setupReservedSeat () {
+    private ReservedSeat setupReservedSeat() {
 
         Seat seat = new Seat();
         seat.setSeatNumber(2);
@@ -164,7 +157,7 @@ public class ReservationUnitTest {
         return reservedSeat;
     }
 
-    private Hall setupHall () {
+    private Hall setupHall() {
         Hall hall = new Hall();
 
         Seat seat = new Seat();
@@ -184,11 +177,11 @@ public class ReservationUnitTest {
         hall.setId(1L);
         hall.setLocation("Universal");
         hall.setCapacity(40);
-        hall.setSeats(Arrays.asList(seat,seat2));
+        hall.setSeats(Arrays.asList(seat, seat2));
         return hall;
     }
 
-    private MovieInfo setupMovieInfo () {
+    private MovieInfo setupMovieInfo() {
         MovieInfo movieInfo = new MovieInfo();
         movieInfo.setId(2L);
         movieInfo.setTitle("What Men Want");
@@ -199,7 +192,7 @@ public class ReservationUnitTest {
         return movieInfo;
     }
 
-    private MovieInfoDTO setupMovieInfoDTO(){
+    private MovieInfoDTO setupMovieInfoDTO() {
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
         MovieInfo movieInfo = setupMovieInfo();
         movieInfoDTO.setProduction(movieInfo.getProduction());

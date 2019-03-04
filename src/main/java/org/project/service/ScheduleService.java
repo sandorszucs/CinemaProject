@@ -68,7 +68,6 @@ public class ScheduleService {
                 return reservedSeat;
             }
         }
-        //seat not found we return null
         return null;
     }
 

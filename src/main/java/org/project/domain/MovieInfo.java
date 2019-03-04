@@ -31,7 +31,6 @@ public class MovieInfo {
     @Column(name = "genre")
     private String genre;
 
-
     public MovieInfo(long id, String title, int production, String director, String actor, String genre) {
         this.id = id;
         this.title = title;

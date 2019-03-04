@@ -22,7 +22,7 @@ public class UserUnitTest {
     private UserService userService;
 
     @Test
-    public void testGetById () {
+    public void testGetById() {
         User userReturned = new User();
         userReturned.setId(3L);
         userReturned.setFirstName("Sandor");
@@ -39,5 +39,4 @@ public class UserUnitTest {
         Assert.assertEquals("Sandor", userDTO.getFirstName());
         Assert.assertEquals(3L, userDTO.getId());
     }
-
 }

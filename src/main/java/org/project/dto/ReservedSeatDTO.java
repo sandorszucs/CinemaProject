@@ -10,7 +10,6 @@ public class ReservedSeatDTO {
     private ScheduleDTO schedule;
     private ReservationDTO reservation;
 
-
     public UserDTO getUser() {
         return user;
     }

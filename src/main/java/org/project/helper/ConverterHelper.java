@@ -221,7 +221,6 @@ public class ConverterHelper {
 
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(reservation.getId());
-        reservationDTO.setTicketAvailableNr(reservation.getTicketAvailableNr());
         reservationDTO.setDateTime(reservation.getDateTime());
         reservationDTO.setScheduleId(reservation.getSchedule().getId());
         reservationDTO.setReservedSeats(reservation.getReservedSeat().stream().map(rv -> rv.getSeat().getRow() + "_" + rv.getSeat().getSeatNumber()).collect(Collectors.toList()));
@@ -248,7 +247,6 @@ public class ConverterHelper {
         }
         reservation.setReservedSeat(reservedSeats);
         reservation.setId(reservationDTO.getId());
-        reservation.setTicketAvailableNr(reservationDTO.getTicketAvailableNr());
         reservation.setDateTime(reservationDTO.getDateTime());
         reservation.setUser(user);
         reservation.setSchedule(schedule);

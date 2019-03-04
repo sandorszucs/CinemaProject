@@ -83,6 +83,4 @@ public class Schedule {
     public void setMovieStartTime(Date movieStartTime) {
         this.movieStartTime = movieStartTime;
     }
-
-
 }

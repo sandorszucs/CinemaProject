@@ -1,7 +1,6 @@
 package org.project.cinema;
 
 import static org.assertj.core.api.Assertions.*;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -30,7 +29,7 @@ public class ScheduleUnitTest {
     private ScheduleService service;
 
     @Test
-    public void testGetById () {
+    public void testGetById() {
         Date date = new Date();
         date.setTime(System.currentTimeMillis());
 
@@ -48,19 +47,19 @@ public class ScheduleUnitTest {
         assertThat(result.getMovieStartTime()).as("Movie start time should be + ", date).isEqualTo(date);
         assertThat(result.getHall().getCapacity()).as("The capacity of the hall shuld be 40 seats").isEqualTo(40);
     }
-    
-    private Schedule setupExpectedSchedule(Date date){
+
+    private Schedule setupExpectedSchedule(Date date) {
         Schedule scheduleReturned = new Schedule();
         scheduleReturned.setId(3L);
         scheduleReturned.setHall(setupHall());
         scheduleReturned.setMovieInfo(setupMovieInfo());
         scheduleReturned.setReservedSeats(Arrays.asList(setupReservedSeat()));
         scheduleReturned.setMovieStartTime(date);
-        
+
         return scheduleReturned;
     }
-    
-    private ScheduleDTO setupExpectedScheduleDTO(Date date, Schedule schedule){
+
+    private ScheduleDTO setupExpectedScheduleDTO(Date date, Schedule schedule) {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         scheduleDTO.setMovieStartTime(date);
         scheduleDTO.setId(schedule.getId());
@@ -69,8 +68,8 @@ public class ScheduleUnitTest {
         scheduleDTO.setMovieInfo(setupMovieInfoDTO());
         return scheduleDTO;
     }
-        
-    private HallDTO setupHallDTO(){
+
+    private HallDTO setupHallDTO() {
         HallDTO hallDTO = new HallDTO();
         Hall hall = setupHall();
 
@@ -80,13 +79,12 @@ public class ScheduleUnitTest {
         return hallDTO;
     }
 
-    private ReservedSeatDTO setupReservedSeatDTO(){
+    private ReservedSeatDTO setupReservedSeatDTO() {
         ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
         return reservedSeatDTO;
     }
 
-
-    private MovieInfoDTO setupMovieInfoDTO(){
+    private MovieInfoDTO setupMovieInfoDTO() {
         MovieInfoDTO movieInfoDTO = new MovieInfoDTO();
         MovieInfo movieInfo = setupMovieInfo();
         movieInfoDTO.setProduction(movieInfo.getProduction());
@@ -94,17 +92,15 @@ public class ScheduleUnitTest {
         movieInfoDTO.setGenre(movieInfo.getGenre());
         movieInfoDTO.setTitle(movieInfo.getTitle());
         movieInfoDTO.setActor(movieInfo.getActor());
-
         return movieInfoDTO;
     }
 
-    private ReservedSeat setupReservedSeat () {
+    private ReservedSeat setupReservedSeat() {
         Seat seat = new Seat();
         seat.setSeatNumber(1);
         seat.setRow(1);
 
         ReservedSeat reservedSeat = new ReservedSeat();
-//        reservedSeat.setId(1L);
         reservedSeat.setSeat(seat);
 
         Seat seat2 = new Seat();
@@ -136,7 +132,7 @@ public class ScheduleUnitTest {
         return reservedSeat;
     }
 
-    private Hall setupHall () {
+    private Hall setupHall() {
         Hall hall = new Hall();
 
         Seat seat = new Seat();
@@ -152,15 +148,14 @@ public class ScheduleUnitTest {
         ReservedSeat reservedSeat2 = new ReservedSeat();
         reservedSeat2.setSeat(seat2);
 
-
         hall.setId(1L);
         hall.setLocation("Universal");
         hall.setCapacity(40);
-        hall.setSeats(Arrays.asList(seat,seat2));
+        hall.setSeats(Arrays.asList(seat, seat2));
         return hall;
     }
 
-    private MovieInfo setupMovieInfo () {
+    private MovieInfo setupMovieInfo() {
         MovieInfo movieInfo = new MovieInfo();
         movieInfo.setId(1L);
         movieInfo.setTitle("Captain Marvel");

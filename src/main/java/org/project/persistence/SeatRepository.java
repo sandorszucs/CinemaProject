@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface SeatRepository extends PagingAndSortingRepository<Seat, Long> {
 
-    Seat findSeatById (long id);
+    Seat findSeatById(long id);
 
 }

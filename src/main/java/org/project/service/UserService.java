@@ -8,10 +8,6 @@ import org.project.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Pageable;
-
 @Service
 public class UserService {
 
@@ -50,16 +46,19 @@ public class UserService {
             throw new IllegalArgumentException("Please provide your telephone number!");
         }
 
-        if(getUserByEmail(email) == null){
+       if(getUserByEmail(email) == null){
             User userObject = converterHelper.convertUser(userDTO, 0);
             return userRepository.save(userObject);
         }
         throw new IllegalArgumentException("Please provide info!");
-    }
+   }
 
     public UserDTO getUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
-        return convertToDto(user);
+        if(user!= null) {
+            return convertToDto(user);
+        }
+        return null;
     }
 
     public UserDTO convertToDto(User user) {
@@ -113,8 +112,4 @@ public class UserService {
         }
         return null;
     }
-//    public Page<User> getAllUsers ( int page, int size){         DO I NEED THIS?
-//        Pageable pageable = new PageRequest(page, size);         I NEED THIS?
-//        return userRepository.findAll(pageable);                 DO I NEED THIS?
-//    }
 }

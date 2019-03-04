@@ -13,7 +13,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
-    public UserDTO getUser(@PathVariable("id") long id){
+    public UserDTO getUser(@PathVariable("id") long id) {
         return userService.getUserById(id);
     }
 

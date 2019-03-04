@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface HallRepository extends PagingAndSortingRepository<Hall, Long> {
 
-    Hall findHallById (long id);
+    Hall findHallById(long id);
 
 }

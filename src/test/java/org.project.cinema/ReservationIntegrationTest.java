@@ -34,7 +34,6 @@ public class ReservationIntegrationTest {
 
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setScheduleId(5);
-        reservationDTO.setTicketAvailableNr(20);
         reservationDTO.setReservedSeats(Arrays.asList("2_3","4_1"));
 
         Date movieDate = new Date();

@@ -1,6 +1,5 @@
 package org.project.web;
 
-import org.project.domain.Schedule;
 import org.project.dto.HallDTO;
 import org.project.dto.ScheduleDTO;
 import org.project.dto.SeatDTO;
@@ -22,18 +21,18 @@ public class ScheduleController {
     }
 
     @RequestMapping(path = "/schedule", method = RequestMethod.GET)
-    public List<ScheduleDTO> getSchedules(){
+    public List<ScheduleDTO> getSchedules() {
         return scheduleService.getSchedules();
     }
 
     @RequestMapping(path = "/schedule/halls", method = RequestMethod.GET)
-    public List<HallDTO> getHalls(){
+    public List<HallDTO> getHalls() {
         return scheduleService.getHalls();
     }
 
 
     @RequestMapping(path = "/schedule/{id}/seats", method = RequestMethod.GET)
-    public List<SeatDTO> getAllAvailableSeatForScheduledId (@PathVariable("id")  long id) {
+    public List<SeatDTO> getAllAvailableSeatForScheduledId(@PathVariable("id") long id) {
         return scheduleService.getAllAvailableSeat(id);
     }
 

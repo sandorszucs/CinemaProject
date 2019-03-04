@@ -6,6 +6,7 @@ import org.project.helper.ConverterHelper;
 import org.project.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,6 @@ public class ReservationService {
         Schedule schedule = new Schedule();
         List<ReservedSeat> reservedSeat = new ArrayList<>();
         reservation.setId(dto.getId());
-        reservation.setTicketAvailableNr(dto.getTicketAvailableNr());
         reservation.setDateTime(dto.getDateTime());
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);

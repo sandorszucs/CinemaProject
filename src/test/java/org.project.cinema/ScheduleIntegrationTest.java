@@ -16,7 +16,9 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import static org.assertj.core.api.Assertions.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -32,21 +34,20 @@ public class ScheduleIntegrationTest {
     @Autowired
     private ScheduleService scheduleService;
 
-    @Autowired
-    private MovieInfoRepository movieInfoRepository;
-
-    @Autowired
-    private HallRepository hallRepository;
-
-    @Autowired
-    private SeatRepository seatRepository;
-
-    @Autowired
-    private ReservedSeatRepository reservedSeatRepository;
+//    @Autowired
+//    private MovieInfoRepository movieInfoRepository;
+//
+//    @Autowired
+//    private HallRepository hallRepository;
+//
+//    @Autowired
+//    private SeatRepository seatRepository;
+//
+//    @Autowired
+//    private ReservedSeatRepository reservedSeatRepository;
 
     @Test
     @Rollback(false)
-    //save
     public void testSave() throws ParseException {
 
         SeatDTO seat = new SeatDTO();
@@ -65,7 +66,7 @@ public class ScheduleIntegrationTest {
         HallDTO hall = new HallDTO();
         hall.setCapacity(40);
         hall.setLocation("CJ");
-        hall.setSeats(Arrays.asList(seat,seat2));
+        hall.setSeats(Arrays.asList(seat, seat2));
 
         MovieInfoDTO movieInfo = new MovieInfoDTO();
         movieInfo.setActor("Sanyika");
@@ -87,13 +88,14 @@ public class ScheduleIntegrationTest {
 
 
     }
+
     @Test
-    public void deleteScheduleById () {
+    public void deleteScheduleById() {
         scheduleService.deleteScheduleById(18);
     }
 
     @Test
-    public void testAvailableSeat(){
+    public void testAvailableSeat() {
 
         List<SeatDTO> getAllAvailableSeat = scheduleService.getAllAvailableSeat(5);
 

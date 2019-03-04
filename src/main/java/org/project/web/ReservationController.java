@@ -1,20 +1,15 @@
 package org.project.web;
 
 import org.project.dto.ReservationDTO;
-import org.project.dto.SeatDTO;
 import org.project.service.ReservationService;
-import org.project.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class ReservationController {
 
     @Autowired
     private ReservationService reservationService;
-
 
     @RequestMapping(path = "/reservation/{id}", method = RequestMethod.GET)
     public ReservationDTO getReservation(@PathVariable("id") long id) {
@@ -28,7 +23,6 @@ public class ReservationController {
         reservationService.saveReservation(reservationDTO);
         return reservationDTO;
     }
-
 
     @RequestMapping(path = "/reservation/{id}", method = RequestMethod.PUT)
     public ReservationDTO updateReservation(@PathVariable long id, @RequestBody ReservationDTO dto) {

@@ -18,22 +18,20 @@ public class User {
 
     private long id;
 
-    @Column(name = "firstName", nullable = true)
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastName", nullable = true)
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "password", nullable = true)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "telephoneNumber", nullable = true)
+    @Column(name = "telephoneNumber")
     private String telephoneNumber;
 
-    @Column(name = "email", nullable = true, unique = true)
+    @Column(name = "email", unique = true)
     private String email;
-
-
 
 
     public String getFirstName() {

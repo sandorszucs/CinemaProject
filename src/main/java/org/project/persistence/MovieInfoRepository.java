@@ -5,6 +5,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface MovieInfoRepository extends PagingAndSortingRepository<MovieInfo, Long> {
 
-    MovieInfo findMovieInfoById (long id);
+    MovieInfo findMovieInfoById(long id);
 
 }
