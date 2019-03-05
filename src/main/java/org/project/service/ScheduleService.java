@@ -29,16 +29,6 @@ public class ScheduleService {
         return scheduleRepository.save(scheduleObject);
     }
 
-
-    public boolean canSellMoreTickets(ScheduleDTO scheduleDTO) {
-        List<SeatDTO> allAvailableSeat = getAllAvailableSeat(scheduleDTO.getId());
-        if (allAvailableSeat.size() > 0) {
-            System.out.println("There are " + allAvailableSeat + " More available tickets");
-            return true;
-        }
-        return false;
-    }
-
     @Transactional
     public List<SeatDTO> getAllAvailableSeat(long scheduleId) {
         Schedule scheduleById = scheduleRepository.findOne(scheduleId);

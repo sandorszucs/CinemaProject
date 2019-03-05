@@ -19,16 +19,6 @@ public class ReservationService {
     @Autowired
     private ConverterHelper converterHelper;
 
-    @Autowired
-    private ScheduleRepository scheduleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private SeatRepository seatRepository;
-
-
     public void setConverterHelper(ConverterHelper converterHelper) {
         this.converterHelper = converterHelper;
     }

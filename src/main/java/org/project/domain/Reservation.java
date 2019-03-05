@@ -1,5 +1,7 @@
 package org.project.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +21,8 @@ public class Reservation {
     )
     private long id;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+            timezone="Europe/Bucharest")
     @Column(name = "createdDateTime")
     private Date dateTime;
 
