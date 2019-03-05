@@ -6,7 +6,6 @@ import java.util.List;
 public class ReservationDTO {
 
     private long id;
-    private Date dateTime;
 
     private long scheduleId;
     private List<String> reservedSeat;
@@ -18,14 +17,6 @@ public class ReservationDTO {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
     }
 
     public long getScheduleId() {

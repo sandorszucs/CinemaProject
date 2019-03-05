@@ -51,7 +51,6 @@ public class ReservationUnitTest {
         Reservation reservationReturned = new Reservation();
 
         reservationReturned.setId(2L);
-        reservationReturned.setDateTime(date);
         reservationReturned.setReservedSeat(Arrays.asList(setupReservedSeat()));
         reservationReturned.setUser(setupUser());
         reservationReturned.setSchedule(setupSchedule());
@@ -61,7 +60,6 @@ public class ReservationUnitTest {
     private ReservationDTO setupExpectedReservationDTO(Reservation reservation) {
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(reservation.getId());
-        reservationDTO.setDateTime(reservation.getDateTime());
         return reservationDTO;
     }
 

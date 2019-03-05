@@ -1,5 +1,7 @@
 package org.project.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,8 @@ public class Schedule {
     @JoinColumn(name = "movieInfo_id")
     private MovieInfo movieInfo;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+            timezone="Europe/Bucharest")
     @Column(name = "movieStartTime")
     private Date movieStartTime;
 

@@ -36,10 +36,7 @@ public class ReservationIntegrationTest {
         reservationDTO.setScheduleId(5);
         reservationDTO.setReservedSeats(Arrays.asList("2_3","4_1"));
 
-        Date movieDate = new Date();
-
         date.setTime(System.currentTimeMillis());
-        reservationDTO.setDateTime(movieDate);
         reservationDTO.setUserId(1L);
 
         ObjectMapper m = new ObjectMapper();

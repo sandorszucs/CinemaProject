@@ -48,7 +48,6 @@ public class ReservationService {
         Schedule schedule = new Schedule();
         List<ReservedSeat> reservedSeat = new ArrayList<>();
         reservation.setId(dto.getId());
-        reservation.setDateTime(dto.getDateTime());
         reservation.setSchedule(schedule);
         reservation.setReservedSeat(reservedSeat);
         Reservation savedReservation = reservationRepository.save(reservation);

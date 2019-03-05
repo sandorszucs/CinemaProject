@@ -21,11 +21,6 @@ public class Reservation {
     )
     private long id;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ",
-            timezone="Europe/Bucharest")
-    @Column(name = "createdDateTime")
-    private Date dateTime;
-
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
@@ -38,8 +33,7 @@ public class Reservation {
     private List<ReservedSeat> reservedSeat = new ArrayList<>();
 
 
-    public Reservation(Date dateTime, User user, Schedule schedule, List<ReservedSeat> reservedSeat) {
-        this.dateTime = dateTime;
+    public Reservation(User user, Schedule schedule, List<ReservedSeat> reservedSeat) {
         this.user = user;
         this.schedule = schedule;
         this.reservedSeat = reservedSeat;
@@ -79,13 +73,4 @@ public class Reservation {
     public void setId(long id) {
         this.id = id;
     }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
-
 }
